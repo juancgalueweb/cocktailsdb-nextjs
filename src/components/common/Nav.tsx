@@ -7,8 +7,8 @@ export const Nav: FC = () => {
       <Link href="/">
         <a>Home</a>
       </Link>
-      <Link href="/movies">
-        <a>Movies</a>
+      <Link href="/popular-cocktails">
+        <a>Pupular Cocktails</a>
       </Link>
     </nav>
   );
