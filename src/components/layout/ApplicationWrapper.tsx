@@ -21,7 +21,7 @@ export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
         {description && <meta name="description" content={description} />}
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
-      <header className="bg-white h-20">
+      <header className="bg-white h-10">
         <Nav />
       </header>
       <main className="grow flex flex-col text-white">{children}</main>

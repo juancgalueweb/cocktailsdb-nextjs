@@ -3,7 +3,7 @@ import { FC } from "react";
 
 export const Nav: FC = () => {
   return (
-    <nav className="w-full flex gap-5 p-6 items-center text-2xl">
+    <nav className="w-full flex gap-5 p-2 pl-4 items-center text-xl">
       <Link href="/">
         <a>Home</a>
       </Link>

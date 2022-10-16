@@ -19,49 +19,54 @@ const Home: NextPage = () => {
         effect="fade"
         lazyLoad="ondemand"
         pauseOnHover={false}
-        centerMode
-        centerPadding="350px"
+        // centerMode
+        // centerPadding="350px"
       >
-        <Image
-          src={slice1}
-          alt="Slice 1"
-          width={2000}
-          height={1333}
-          placeholder="blur"
-          layout="responsive"
-        />
-        <Image
-          src={slice2}
-          alt="Slice 2"
-          width={2000}
-          height={1333}
-          placeholder="blur"
-          layout="responsive"
-        />
-        <Image
-          src={slice3}
-          alt="Slice 3"
-          width={2000}
-          height={1333}
-          placeholder="blur"
-          layout="responsive"
-        />
-        <Image
-          src={slice4}
-          alt="Slice 4"
-          width={2000}
-          height={1333}
-          placeholder="blur"
-          layout="responsive"
-        />
-        <Image
-          src={slice5}
-          alt="Slice 5"
-          width={2000}
-          height={1333}
-          placeholder="blur"
-          layout="responsive"
-        />
+        {/* Slice 1 */}
+        <div className="block min-h-full xl:px-32 2xl:px-80">
+          <Image
+            src={slice1}
+            alt="Slice 1"
+            layout="responsive"
+            placeholder="blur"
+          />
+        </div>
+        {/* Slice 2 */}
+        <div className="block min-h-full xl:px-32 2xl:px-80">
+          <Image
+            src={slice2}
+            alt="Slice 2"
+            layout="responsive"
+            placeholder="blur"
+          />
+        </div>
+        {/* Slice 3 */}
+        <div className="block min-h-full xl:px-32 2xl:px-80">
+          <Image
+            src={slice3}
+            alt="Slice 3"
+            layout="responsive"
+            placeholder="blur"
+          />
+        </div>
+        {/* Slice 4 */}
+        <div className="block min-h-full xl:px-32 2xl:px-80">
+          <Image
+            src={slice4}
+            alt="Slice 4"
+            layout="responsive"
+            placeholder="blur"
+          />
+        </div>
+        {/* Slice 5 */}
+        <div className="block min-h-full xl:px-32 2xl:px-80">
+          <Image
+            src={slice5}
+            alt="Slice 5"
+            layout="responsive"
+            placeholder="blur"
+          />
+        </div>
       </Carousel>
     </ApplicationWrapper>
   );
