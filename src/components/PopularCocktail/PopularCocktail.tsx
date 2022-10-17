@@ -2,24 +2,51 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import { ICocktail } from "../../global/ICocktail";
+import { Card, Tag } from "antd";
+import { VideoCameraTwoTone } from "@ant-design/icons";
 
 interface TProps {
   drink: ICocktail;
 }
 
+const { Meta } = Card;
+
 export const PopularCocktail: FC<TProps> = ({ drink }) => {
   return (
     <li>
-      <Link href={`/popular-cocktails/${drink.idDrink}`}>
-        <Image
-          className="cursor-pointer"
-          src={drink.strDrinkThumb}
-          alt={`${drink.strDrink} Image`}
-          width={606}
-          height={606}
-        />
-      </Link>
-      <p className="text-lg">{drink.strDrink}</p>
+      <Card
+        hoverable
+        style={{ cursor: "default" }}
+        cover={
+          <Image
+            src={drink.strDrinkThumb}
+            alt={`${drink.strDrink} Image`}
+            width={606}
+            height={606}
+          />
+        }
+        extra={
+          <Link href={`/popular-cocktails/${drink.idDrink}`}>
+            <a>More</a>
+          </Link>
+        }
+      >
+        <Meta
+          title={drink.strDrink}
+          description={drink.strIBA ? drink.strIBA : ""}
+        ></Meta>
+        <Tag
+          className="mt-3 mr-3"
+          color={drink.strAlcoholic === "Alcoholic" ? "magenta" : "green"}
+        >
+          {drink.strAlcoholic}
+        </Tag>
+        {drink.strVideo ? (
+          <a href={drink.strVideo} target="_blank" rel="noreferrer">
+            <VideoCameraTwoTone />
+          </a>
+        ) : null}
+      </Card>
     </li>
   );
 };

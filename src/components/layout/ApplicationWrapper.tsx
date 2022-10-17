@@ -13,11 +13,10 @@ export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
   description,
   children,
 }) => {
-  const finalTitle = `${title} | RootLab Movies`;
   return (
     <div className="bg-black min-h-screen flex flex-col">
       <Head>
-        <title>{finalTitle}</title>
+        <title>{title}</title>
         {description && <meta name="description" content={description} />}
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
