@@ -4,6 +4,7 @@ import { ICocktail } from "../../global/ICocktail";
 import { PopularCocktail } from "../../components/PopularCocktail/PopularCocktail";
 import { GetStaticProps } from "next";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 interface TProps {
   drinks: ICocktail[];
@@ -21,7 +22,7 @@ const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
         </h1>
         <ul className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5">
           {drinks.map((drink) => (
-            <PopularCocktail key={drink.idDrink} drink={drink} />
+            <PopularCocktail key={uuidv4()} drink={drink} />
           ))}
         </ul>
       </div>
