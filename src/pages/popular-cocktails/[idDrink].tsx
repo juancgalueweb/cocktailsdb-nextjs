@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { VideoCameraTwoTone } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
+import { imageCreditsName } from "../../helpers/imageCreditsName";
+import { imageCreditsUrl } from "../../helpers/imageCreditsUrl";
 
 const { Panel } = Collapse;
 interface TProps {
@@ -84,6 +86,26 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({ drink }) => {
               </Link>
             }
           >
+            {imageCreditsName(ele.strImageAttribution) &&
+            imageCreditsUrl(ele.strImageAttribution) ? (
+              <p className="text-right text-sm font-thin">
+                Image by {imageCreditsName(ele.strImageAttribution)} via{" "}
+                <a
+                  href={imageCreditsUrl(ele.strImageAttribution)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline text-blue-800"
+                >
+                  {"[source link]"}
+                </a>
+              </p>
+            ) : imageCreditsName(ele.strImageAttribution) &&
+              !imageCreditsUrl(ele.strImageAttribution) ? (
+              <p className="text-right text-sm font-thin">
+                Image by {imageCreditsName(ele.strImageAttribution)}
+              </p>
+            ) : null}
+
             <Tag
               className="mt-3 mr-3"
               color={ele.strAlcoholic === "Alcoholic" ? "magenta" : "green"}

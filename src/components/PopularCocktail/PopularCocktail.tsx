@@ -33,7 +33,7 @@ export const PopularCocktail: FC<TProps> = ({ drink }) => {
       >
         <Meta
           title={drink.strDrink}
-          description={drink.strIBA ? drink.strIBA : ""}
+          description={drink.strCategory ? drink.strCategory : ""}
         ></Meta>
         <Tag
           className="mt-3 mr-3"
