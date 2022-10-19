@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
 import { ICocktail } from "../../global/ICocktail";
-import { Card, Tag } from "antd";
+import { Card, Tag, Button } from "antd";
 import { VideoCameraTwoTone } from "@ant-design/icons";
 
 interface TProps {
@@ -26,8 +26,8 @@ export const PopularCocktail: FC<TProps> = ({ drink }) => {
           />
         }
         extra={
-          <Link href={`/popular-cocktails/${drink.idDrink}`}>
-            <a>More</a>
+          <Link href={`/popular-cocktails/${drink.idDrink}`} passHref>
+            <Button type="primary">More</Button>
           </Link>
         }
       >
