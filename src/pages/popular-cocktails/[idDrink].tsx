@@ -5,10 +5,11 @@ import { ICocktail } from "../../global/ICocktail";
 import { Card, Tag, Collapse, Button } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { VideoCameraTwoTone } from "@ant-design/icons";
 import { v4 as uuidv4 } from "uuid";
 import { imageCreditsName } from "../../helpers/imageCreditsName";
 import { imageCreditsUrl } from "../../helpers/imageCreditsUrl";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 const { Panel } = Collapse;
 interface TProps {
@@ -93,7 +94,7 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({ drink }) => {
                 <a
                   href={imageCreditsUrl(ele.strImageAttribution)}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="underline text-blue-800"
                 >
                   {"[source link]"}
@@ -113,8 +114,12 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({ drink }) => {
               {ele.strAlcoholic}
             </Tag>
             {ele.strVideo ? (
-              <a href={ele.strVideo} target="_blank" rel="noreferrer">
-                <VideoCameraTwoTone />
+              <a href={ele.strVideo} target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon
+                  icon={faYoutube}
+                  size="lg"
+                  className="text-[#FF0000]"
+                ></FontAwesomeIcon>
               </a>
             ) : null}
             <h2 className="text-lg py-2">Type of glass</h2>

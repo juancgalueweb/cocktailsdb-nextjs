@@ -3,8 +3,8 @@ import Link from "next/link";
 import React, { FC } from "react";
 import { ICocktail } from "../../global/ICocktail";
 import { Card, Tag, Button } from "antd";
-import { VideoCameraTwoTone } from "@ant-design/icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 interface TProps {
   drink: ICocktail;
 }
@@ -42,8 +42,12 @@ export const PopularCocktail: FC<TProps> = ({ drink }) => {
           {drink.strAlcoholic}
         </Tag>
         {drink.strVideo ? (
-          <a href={drink.strVideo} target="_blank" rel="noreferrer">
-            <VideoCameraTwoTone />
+          <a href={drink.strVideo} target="_blank" rel="noopener noreferrer">
+            <FontAwesomeIcon
+              icon={faYoutube}
+              size="lg"
+              className="text-[#FF0000]"
+            ></FontAwesomeIcon>
           </a>
         ) : null}
       </Card>
