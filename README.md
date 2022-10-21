@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project created with [`PNPM`](https://pnpm.io/), which is performance-npm.
+This is a [Next.js](https://nextjs.org/) project created with [PNPM](https://pnpm.io/), which is performance-npm.
 
 ## Getting Started
 
