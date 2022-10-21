@@ -71,15 +71,17 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({ drink }) => {
           </h1>
           <Card
             hoverable
-            className="mb-6"
-            style={{ cursor: "default", maxWidth: "600px" }}
+            className="mb-6 cursor-default max-w-[600px]"
             cover={
-              <Image
-                src={ele.strDrinkThumb}
-                alt={`${ele.strDrink} Image`}
-                width={600}
-                height={600}
-              />
+              <div className="flex justify-center mt-2">
+                <Image
+                  src={ele.strDrinkThumb}
+                  alt={`${ele.strDrink} Image`}
+                  width={500}
+                  height={500}
+                  style={{ borderRadius: "4px" }}
+                />
+              </div>
             }
             extra={
               <Link href="/popular-cocktails" passHref>
