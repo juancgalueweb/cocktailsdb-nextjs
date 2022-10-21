@@ -71,7 +71,7 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({ drink }) => {
           </h1>
           <Card
             hoverable
-            className="mb-6 cursor-default w-[600px] max-w-[600px]"
+            className="mb-6 cursor-default max-w-[600px]"
             cover={
               <div className="flex justify-center mt-2">
                 <Image
