@@ -53,6 +53,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       drink,
     },
+    //Incremental Static Regeneration
+    revalidate: 60,
   };
 };
 
