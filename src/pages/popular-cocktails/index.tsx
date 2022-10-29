@@ -3,8 +3,8 @@ import { ApplicationWrapper } from "../../components/layout/ApplicationWrapper";
 import { ICocktail } from "../../global/ICocktail";
 import { PopularCocktail } from "../../components/PopularCocktail/PopularCocktail";
 import { GetStaticProps } from "next";
-import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+import {fetchPopularCocktails} from "../../libs/fetchPopularCocktails"
 
 interface TProps {
   drinks: ICocktail[];
@@ -33,17 +33,8 @@ const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
 export default Popularcocktails;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const config = {
-    headers: {
-      "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-      "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY,
-    },
-  };
-  const cocktails = await axios.get(
-    "https://the-cocktail-db.p.rapidapi.com/popular.php",
-    config
-  );
-  const { drinks } = cocktails.data;
+  const drinks = await fetchPopularCocktails();
+
   return {
     props: {
       drinks,

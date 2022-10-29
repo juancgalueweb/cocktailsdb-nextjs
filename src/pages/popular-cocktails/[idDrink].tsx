@@ -1,4 +1,3 @@
-import axios from "axios";
 import { GetStaticProps, GetStaticPaths, NextPage } from "next";
 import { ApplicationWrapper } from "../../components/layout/ApplicationWrapper";
 import { ICocktail } from "../../global/ICocktail";
@@ -10,6 +9,8 @@ import { imageCreditsName } from "../../helpers/imageCreditsName";
 import { imageCreditsUrl } from "../../helpers/imageCreditsUrl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { fetchPopularCocktails } from "../../libs/fetchPopularCocktails";
+import {fetchCocktailById} from "../../libs/fetchCocktailById"
 
 const { Panel } = Collapse;
 interface TProps {
@@ -17,17 +18,7 @@ interface TProps {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const config = {
-    headers: {
-      "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-      "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY,
-    },
-  };
-  const cocktails = await axios.get(
-    "https://the-cocktail-db.p.rapidapi.com/popular.php",
-    config
-  );
-  const { drinks } = cocktails.data;
+  const drinks = await fetchPopularCocktails();
   const paths = drinks.map((drink: ICocktail) => {
     return {
       params: { idDrink: drink.idDrink },
@@ -37,18 +28,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const config = {
-    params: { i: context.params?.idDrink },
-    headers: {
-      "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-      "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY,
-    },
-  };
-  const cocktail = await axios.get(
-    "https://the-cocktail-db.p.rapidapi.com/lookup.php",
-    config
-  );
-  const drink = cocktail.data.drinks;
+  const id = context.params?.idDrink
+  const drink = await fetchCocktailById(id);
   return {
     props: {
       drink,
