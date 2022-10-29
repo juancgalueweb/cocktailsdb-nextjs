@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
   const id = context.params?.idDrink;
   const url = `https://the-cocktail-db.p.rapidapi.com/lookup.php?i=${id}`;
-  const drink = await fetch(url, options)
+  const drink: ICocktail = await fetch(url, options)
     .then((res) => res.json())
     .then((data) => data.drinks);
   return {
