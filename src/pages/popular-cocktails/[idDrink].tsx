@@ -9,7 +9,6 @@ import { imageCreditsName } from "../../helpers/imageCreditsName";
 import { imageCreditsUrl } from "../../helpers/imageCreditsUrl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
-import axios from "axios";
 
 const { Panel } = Collapse;
 interface TProps {
@@ -17,17 +16,20 @@ interface TProps {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const config = {
-    headers: {
-      "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-      "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY,
-    },
+  const apiKey: string = process.env.NEXT_PUBLIC_API_KEY!;
+  const requestHeaders: HeadersInit = {
+    "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
+    "x-rapidapi-key": apiKey,
   };
-  const cocktails = await axios.get(
+
+  const drinks: ICocktail[] = (await fetch(
     "https://the-cocktail-db.p.rapidapi.com/popular.php",
-    config
-  );
-  const { drinks } = cocktails.data;
+    {
+      headers: requestHeaders,
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => data.drinks)) as ICocktail[];
   const paths = drinks.map((drink: ICocktail) => {
     return {
       params: { idDrink: drink.idDrink },
@@ -37,19 +39,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const config = {
-    params: { i: context.params?.idDrink },
-    headers: {
-      "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-      "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY,
-    },
+  const apiKey: string = process.env.NEXT_PUBLIC_API_KEY!;
+  const requestHeaders: HeadersInit = {
+    "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
+    "x-rapidapi-key": apiKey,
   };
-
-  const cocktail = await axios.get(
-    "https://the-cocktail-db.p.rapidapi.com/lookup.php",
-    config
-  );
-  const drink = cocktail.data.drinks;
+  const options = {
+    method: "GET",
+    headers: requestHeaders,
+  };
+  const id = context.params?.idDrink;
+  const url = `https://the-cocktail-db.p.rapidapi.com/lookup.php?i=${id}`;
+  const drink = await fetch(url, options)
+    .then((res) => res.json())
+    .then((data) => data.drinks);
   return {
     props: {
       drink,

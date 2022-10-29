@@ -4,7 +4,6 @@ import { ICocktail } from "../../global/ICocktail";
 import { PopularCocktail } from "../../components/PopularCocktail/PopularCocktail";
 import { GetStaticProps } from "next";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 
 interface TProps {
   drinks: ICocktail[];
