@@ -33,17 +33,20 @@ const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
 export default Popularcocktails;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const config = {
-    headers: {
-      "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-      "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY,
-    },
+  const apiKey: string = process.env.NEXT_PUBLIC_API_KEY!;
+  const requestHeaders: HeadersInit = {
+    "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
+    "x-rapidapi-key": apiKey,
   };
-  const cocktails = await axios.get(
+
+  const drinks: ICocktail[] = (await fetch(
     "https://the-cocktail-db.p.rapidapi.com/popular.php",
-    config
-  );
-  const { drinks } = cocktails.data;
+    {
+      headers: requestHeaders,
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => data.drinks)) as ICocktail[];
 
   return {
     props: {
