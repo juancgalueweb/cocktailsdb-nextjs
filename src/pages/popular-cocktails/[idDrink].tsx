@@ -30,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   )
     .then((res) => res.json())
     .then((data) => data.drinks)) as ICocktail[];
-  const paths = drinks.map((drink: ICocktail) => {
+  const paths = drinks?.map((drink: ICocktail) => {
     return {
       params: { idDrink: drink.idDrink },
     };
