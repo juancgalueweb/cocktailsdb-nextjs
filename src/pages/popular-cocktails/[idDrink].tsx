@@ -28,7 +28,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const id = context.params?.idDrink
+  const id = context.params?.idDrink as string
   const drink = await fetchCocktailById(id);
   return {
     props: {
