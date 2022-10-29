@@ -7,7 +7,7 @@ export const Footer: FC = () => {
   return (
     <footer className="flex p-6 h-10 text-black bg-white items-center justify-between">
       <span className="text-slate-800 font-extralight">
-        Project created by Juan Galu&eacute;
+        Project created by Juan Carlos Galu&eacute; Rivera
       </span>
       <span className="text-slate-800 font-extralight">
         Email me to{" "}
