@@ -7,10 +7,13 @@ export async function fetchPopularCocktails() {
       "x-rapidapi-key": process.env.NEXT_PUBLIC_API_KEY,
     },
   };
-
-  const cocktails = await axios.get(
-    "https://the-cocktail-db.p.rapidapi.com/popular.php",
-    config
-  );
-  return cocktails.data.drinks;
+  try {
+    const cocktails = await axios.get(
+      "https://the-cocktail-db.p.rapidapi.com/popular.php",
+      config
+    );
+    return cocktails.data.drinks;
+  } catch (error) {
+    console.error(error);
+  }
 }
