@@ -4,6 +4,7 @@ import { ICocktail } from "../../global/ICocktail";
 import { PopularCocktail } from "../../components/PopularCocktail/PopularCocktail";
 import { GetStaticProps } from "next";
 import { v4 as uuidv4 } from "uuid";
+import { fetchAllCocktails } from "../../helpers/fetchAllCocktails";
 
 interface TProps {
   drinks: ICocktail[];
@@ -32,20 +33,7 @@ const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
 export default Popularcocktails;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const apiKey: string = process.env.NEXT_PUBLIC_API_KEY!;
-  const requestHeaders: HeadersInit = {
-    "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-    "x-rapidapi-key": apiKey,
-  };
-
-  const drinks: ICocktail[] = (await fetch(
-    "https://the-cocktail-db.p.rapidapi.com/popular.php",
-    {
-      headers: requestHeaders,
-    }
-  )
-    .then((res) => res.json())
-    .then((data) => data.drinks)) as ICocktail[];
+  const drinks = await fetchAllCocktails();
 
   return {
     props: {

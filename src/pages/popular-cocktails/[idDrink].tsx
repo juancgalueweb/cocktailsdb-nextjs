@@ -9,6 +9,8 @@ import { imageCreditsName } from "../../helpers/imageCreditsName";
 import { imageCreditsUrl } from "../../helpers/imageCreditsUrl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { fetchCocktailById } from "../../helpers/fetchCocktailById";
+import { fetchAllCocktails } from "../../helpers/fetchAllCocktails";
 
 const { Panel } = Collapse;
 interface TProps {
@@ -16,20 +18,7 @@ interface TProps {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const apiKey: string = process.env.NEXT_PUBLIC_API_KEY!;
-  const requestHeaders: HeadersInit = {
-    "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-    "x-rapidapi-key": apiKey,
-  };
-
-  const drinks: ICocktail[] = (await fetch(
-    "https://the-cocktail-db.p.rapidapi.com/popular.php",
-    {
-      headers: requestHeaders,
-    }
-  )
-    .then((res) => res.json())
-    .then((data) => data.drinks)) as ICocktail[];
+  const drinks = await fetchAllCocktails();
   const paths = drinks?.map((drink: ICocktail) => {
     return {
       params: { idDrink: drink.idDrink },
@@ -39,20 +28,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const apiKey: string = process.env.NEXT_PUBLIC_API_KEY!;
-  const requestHeaders: HeadersInit = {
-    "x-rapidapi-host": "the-cocktail-db.p.rapidapi.com",
-    "x-rapidapi-key": apiKey,
-  };
-  const options = {
-    method: "GET",
-    headers: requestHeaders,
-  };
-  const id = context.params?.idDrink;
-  const url = `https://the-cocktail-db.p.rapidapi.com/lookup.php?i=${id}`;
-  const drink: ICocktail = await fetch(url, options)
-    .then((res) => res.json())
-    .then((data) => data.drinks);
+  const id = context.params?.idDrink as string;
+  const drink = await fetchCocktailById(id);
   return {
     props: {
       drink,
