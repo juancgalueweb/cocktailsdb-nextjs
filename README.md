@@ -34,3 +34,5 @@ To learn more about Next.js, take a look at the following resources:
 ## Deploy on Vercel
 
 The live version of the project was deployed using [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check the live version by clicking [here](https://nextjs-rootlab-final-project.vercel.app/)
