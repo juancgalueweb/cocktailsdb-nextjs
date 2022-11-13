@@ -9,11 +9,11 @@ export const Footer: FC = () => {
       <span className="text-slate-800 font-extralight">
         Project created by Juan C. Galu&eacute; R.
       </span>
-      <span className="text-slate-800 font-extralight">
+      <span className="text-blue-600 font-extralight">
         Email me to{" "}
         <a
           href="mailto: juancgalue@gmail.com?subject=Email%20from%20NextJS%20Vercel%20App"
-          className="text-green-600 font-medium"
+          className="text-blue-600 font-medium"
         >
           <FontAwesomeIcon icon={faEnvelope} className="mx-1"></FontAwesomeIcon>{" "}
           juancgalue@gmail.com
@@ -27,7 +27,7 @@ export const Footer: FC = () => {
           rel="noopener noreferrer"
           className="text-red-600 font-medium"
         >
-          <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon> repo
+          <FontAwesomeIcon icon={faGithub}></FontAwesomeIcon> Github repo
         </a>
       </span>
     </footer>
