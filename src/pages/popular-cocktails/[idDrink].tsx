@@ -9,12 +9,21 @@ import { imageCreditsName } from "../../helpers/imageCreditsName";
 import { imageCreditsUrl } from "../../helpers/imageCreditsUrl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import {
+  faArrowRightLong,
+  faArrowLeftLong,
+} from "@fortawesome/free-solid-svg-icons";
 import { fetchCocktailById } from "../../helpers/fetchCocktailById";
 import { fetchAllCocktails } from "../../helpers/fetchAllCocktails";
 
 const { Panel } = Collapse;
 interface TProps {
   drink: ICocktail[];
+  nextId: number;
+  prevId: number;
+  hasNextId: boolean;
+  hasPrevId: boolean;
+  allIds: string[];
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -30,16 +39,34 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.idDrink as string;
   const drink = await fetchCocktailById(id);
+  const allDrinks = await fetchAllCocktails();
+  const allIds = allDrinks?.map((drink: ICocktail) => drink.idDrink);
+  const nextId: number = allIds.indexOf(id) + 1;
+  const prevId: number = allIds.indexOf(id) - 1;
+  const hasNextId: boolean = allIds.includes(allIds[nextId]);
+  const hasPrevId: boolean = allIds.includes(allIds[prevId]);
   return {
     props: {
       drink,
+      nextId,
+      prevId,
+      hasNextId,
+      hasPrevId,
+      allIds,
     },
   };
 };
 
 const engInstructionsCollapseKey = uuidv4();
 
-const PopularCocktailDetailPage: NextPage<TProps> = ({ drink }) => {
+const PopularCocktailDetailPage: NextPage<TProps> = ({
+  drink,
+  nextId,
+  prevId,
+  hasNextId,
+  hasPrevId,
+  allIds,
+}) => {
   return (
     <ApplicationWrapper title={drink[0].strDrink}>
       {drink.map((ele) => (
@@ -50,6 +77,34 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({ drink }) => {
           <h1 className="text-4xl py-3 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600">
             {ele.strDrink}
           </h1>
+          <div className="w-1/3 flex justify-between">
+            {hasPrevId ? (
+              <Link href={`/popular-cocktails/${allIds[+prevId]}`} passHref>
+                <a className="text-gray-600 text-lg font-medium mb-3">
+                  <FontAwesomeIcon
+                    icon={faArrowLeftLong}
+                    className="mr-2 fa-beat"
+                    style={{ animationDuration: "2s" }}
+                  ></FontAwesomeIcon>{" "}
+                  Previous
+                </a>
+              </Link>
+            ) : (
+              <span> </span>
+            )}
+            {hasNextId && (
+              <Link href={`/popular-cocktails/${allIds[+nextId]}`} passHref>
+                <a className="text-gray-600 text-lg font-medium mb-3">
+                  Next{" "}
+                  <FontAwesomeIcon
+                    icon={faArrowRightLong}
+                    className="ml-2 fa-beat"
+                    style={{ animationDuration: "2s" }}
+                  ></FontAwesomeIcon>
+                </a>
+              </Link>
+            )}
+          </div>
           <Card
             hoverable
             className="mb-6 cursor-default max-w-[600px]"
