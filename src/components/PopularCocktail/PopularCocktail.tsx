@@ -5,6 +5,7 @@ import { ICocktail } from "../../global/ICocktail";
 import { Card, Tag, Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+// import { BlurhashCanvas } from "react-blurhash";
 interface TProps {
   drink: ICocktail;
 }
@@ -19,10 +20,12 @@ export const PopularCocktail: FC<TProps> = ({ drink }) => {
         style={{ cursor: "default" }}
         cover={
           <Image
-            src={drink.strDrinkThumb}
+            src={drink.img}
             alt={`${drink.strDrink} Image`}
+            blurDataURL={drink.base64}
             width={606}
             height={606}
+            placeholder="blur"
           />
         }
         extra={

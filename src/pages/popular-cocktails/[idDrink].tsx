@@ -15,10 +15,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { fetchCocktailById } from "../../helpers/fetchCocktailById";
 import { fetchAllCocktails } from "../../helpers/fetchAllCocktails";
+import { getPlaiceholder } from "plaiceholder";
 
 const { Panel } = Collapse;
 interface TProps {
-  drink: ICocktail[];
+  drink: ICocktail;
   nextId: number;
   prevId: number;
   hasNextId: boolean;
@@ -38,13 +39,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.idDrink as string;
-  const drink = await fetchCocktailById(id);
+  // Get all drinks to build a list with all the ids
   const allDrinks = await fetchAllCocktails();
   const allIds = allDrinks?.map((drink: ICocktail) => drink.idDrink);
   const nextId: number = allIds.indexOf(id) + 1;
   const prevId: number = allIds.indexOf(id) - 1;
   const hasNextId: boolean = allIds.includes(allIds[nextId]);
   const hasPrevId: boolean = allIds.includes(allIds[prevId]);
+  // Get a single drink by its id
+  const singleDrink = await fetchCocktailById(id);
+  const { base64, img } = await getPlaiceholder(singleDrink.strDrinkThumb);
+  const drink = { ...singleDrink, base64, img };
+
   return {
     props: {
       drink,
@@ -68,241 +74,241 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
   allIds,
 }) => {
   return (
-    <ApplicationWrapper title={drink[0].strDrink}>
-      {drink.map((ele) => (
-        <div
-          key={uuidv4()}
-          className="min-h-screen flex flex-col justify-center items-center bg-slate-200"
-        >
-          <h1 className="text-4xl py-3 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600">
-            {ele.strDrink}
-          </h1>
-          <div className="w-1/3 flex justify-between">
-            {hasPrevId ? (
-              <Link href={`/popular-cocktails/${allIds[+prevId]}`} passHref>
-                <a className="text-gray-600 text-lg font-medium mb-3">
-                  <FontAwesomeIcon
-                    icon={faArrowLeftLong}
-                    className="mr-2 fa-beat"
-                    style={{ animationDuration: "2s" }}
-                  ></FontAwesomeIcon>{" "}
-                  Previous
-                </a>
-              </Link>
-            ) : (
-              <span> </span>
-            )}
-            {hasNextId && (
-              <Link href={`/popular-cocktails/${allIds[+nextId]}`} passHref>
-                <a className="text-gray-600 text-lg font-medium mb-3">
-                  Next{" "}
-                  <FontAwesomeIcon
-                    icon={faArrowRightLong}
-                    className="ml-2 fa-beat"
-                    style={{ animationDuration: "2s" }}
-                  ></FontAwesomeIcon>
-                </a>
-              </Link>
-            )}
-          </div>
-          <Card
-            hoverable
-            className="mb-6 cursor-default max-w-[600px]"
-            cover={
-              <div className="flex justify-center mt-2">
-                <Image
-                  src={ele.strDrinkThumb}
-                  alt={`${ele.strDrink} Image`}
-                  width={500}
-                  height={500}
-                  style={{ borderRadius: "4px" }}
-                />
-              </div>
-            }
-            extra={
-              <Link href="/popular-cocktails" passHref>
-                <Button type="primary">Go Back</Button>
-              </Link>
-            }
-          >
-            {imageCreditsName(ele.strImageAttribution) &&
-            imageCreditsUrl(ele.strImageAttribution) ? (
-              <p className="text-right text-sm font-thin">
-                Image by {imageCreditsName(ele.strImageAttribution)} via{" "}
-                <a
-                  href={imageCreditsUrl(ele.strImageAttribution)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline text-blue-800"
-                >
-                  {"[source link]"}
-                </a>
-              </p>
-            ) : imageCreditsName(ele.strImageAttribution) &&
-              !imageCreditsUrl(ele.strImageAttribution) ? (
-              <p className="text-right text-sm font-thin">
-                Image by {imageCreditsName(ele.strImageAttribution)}
-              </p>
-            ) : null}
-
-            <Tag
-              className="mt-3 mr-3"
-              color={ele.strAlcoholic === "Alcoholic" ? "magenta" : "green"}
-            >
-              {ele.strAlcoholic}
-            </Tag>
-            {ele.strVideo ? (
-              <a href={ele.strVideo} target="_blank" rel="noopener noreferrer">
+    <ApplicationWrapper title={drink.strDrink}>
+      <div
+        key={uuidv4()}
+        className="min-h-screen flex flex-col justify-center items-center bg-slate-200"
+      >
+        <h1 className="text-4xl py-3 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600">
+          {drink.strDrink}
+        </h1>
+        <div className="w-1/3 flex justify-between">
+          {hasPrevId ? (
+            <Link href={`/popular-cocktails/${allIds[+prevId]}`} passHref>
+              <a className="text-gray-600 text-lg font-medium mb-3">
                 <FontAwesomeIcon
-                  icon={faYoutube}
-                  size="lg"
-                  className="text-[#FF0000]"
+                  icon={faArrowLeftLong}
+                  className="mr-2 fa-beat"
+                  style={{ animationDuration: "2s" }}
+                ></FontAwesomeIcon>{" "}
+                Previous
+              </a>
+            </Link>
+          ) : (
+            <span> </span>
+          )}
+          {hasNextId && (
+            <Link href={`/popular-cocktails/${allIds[+nextId]}`} passHref>
+              <a className="text-gray-600 text-lg font-medium mb-3">
+                Next{" "}
+                <FontAwesomeIcon
+                  icon={faArrowRightLong}
+                  className="ml-2 fa-beat"
+                  style={{ animationDuration: "2s" }}
                 ></FontAwesomeIcon>
               </a>
-            ) : null}
-            <h2 className="text-lg py-2">Type of glass</h2>
-            <p>{ele.strGlass}</p>
-            {ele.strTags && <h2 className="text-lg py-2">Tags</h2>}
-            {ele.strTags?.split(",").map((ele) => (
-              <Tag key={uuidv4()} className="mt-3 mr-3" color="blue">
-                {ele}
-              </Tag>
-            ))}
-            <table className="table-auto min-w-full divide-y divide-gray-200 my-6">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                  >
-                    Ingredient
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
-                  >
-                    Measure
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                <tr>
-                  {ele.strIngredient1 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strIngredient1}
-                    </td>
-                  )}
-                  {ele.strMeasure1 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strMeasure1}
-                    </td>
-                  )}
-                </tr>
-                <tr>
-                  {ele.strIngredient2 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strIngredient2}
-                    </td>
-                  )}
-                  {ele.strMeasure2 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strMeasure2}
-                    </td>
-                  )}
-                </tr>
-                <tr>
-                  {ele.strIngredient3 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strIngredient3}
-                    </td>
-                  )}
-                  {ele.strMeasure3 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strMeasure3}
-                    </td>
-                  )}
-                </tr>
-                <tr>
-                  {ele.strIngredient4 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strIngredient4}
-                    </td>
-                  )}
-                  {ele.strMeasure4 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strMeasure4}
-                    </td>
-                  )}
-                </tr>
-                <tr>
-                  {ele.strIngredient5 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strIngredient5}
-                    </td>
-                  )}
-                  {ele.strMeasure5 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strMeasure5}
-                    </td>
-                  )}
-                </tr>
-                <tr>
-                  {ele.strIngredient6 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strIngredient6}
-                    </td>
-                  )}
-                  {ele.strMeasure6 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strMeasure6}
-                    </td>
-                  )}
-                </tr>
-                <tr>
-                  {ele.strIngredient7 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strIngredient7}
-                    </td>
-                  )}
-                  {ele.strMeasure7 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strMeasure7}
-                    </td>
-                  )}
-                </tr>
-                <tr>
-                  {ele.strIngredient8 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strIngredient8}
-                    </td>
-                  )}
-                  {ele.strMeasure8 && (
-                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                      {ele.strMeasure8}
-                    </td>
-                  )}
-                </tr>
-              </tbody>
-            </table>
-            <Collapse
-              className="mt-4"
-              defaultActiveKey={engInstructionsCollapseKey}
-            >
-              <Panel
-                header="Preparation instructions"
-                key={engInstructionsCollapseKey}
-              >
-                <p>{ele.strInstructions}</p>
-              </Panel>
-              {ele.strInstructionsES && (
-                <Panel header="Instrucciones de preparación" key={uuidv4()}>
-                  <p>{ele.strInstructionsES}</p>
-                </Panel>
-              )}
-            </Collapse>
-          </Card>
+            </Link>
+          )}
         </div>
-      ))}
+        <Card
+          hoverable
+          className="mb-6 cursor-default max-w-[600px]"
+          cover={
+            <div className="flex justify-center mt-2">
+              <Image
+                src={drink.img}
+                alt={`${drink.strDrink} Image`}
+                width={500}
+                height={500}
+                blurDataURL={drink.base64}
+                placeholder="blur"
+                style={{ borderRadius: "4px" }}
+              />
+            </div>
+          }
+          extra={
+            <Link href="/popular-cocktails" passHref>
+              <Button type="primary">Go Back</Button>
+            </Link>
+          }
+        >
+          {imageCreditsName(drink.strImageAttribution) &&
+          imageCreditsUrl(drink.strImageAttribution) ? (
+            <p className="text-right text-sm font-thin">
+              Image by {imageCreditsName(drink.strImageAttribution)} via{" "}
+              <a
+                href={imageCreditsUrl(drink.strImageAttribution)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-blue-800"
+              >
+                {"[source link]"}
+              </a>
+            </p>
+          ) : imageCreditsName(drink.strImageAttribution) &&
+            !imageCreditsUrl(drink.strImageAttribution) ? (
+            <p className="text-right text-sm font-thin">
+              Image by {imageCreditsName(drink.strImageAttribution)}
+            </p>
+          ) : null}
+
+          <Tag
+            className="mt-3 mr-3"
+            color={drink.strAlcoholic === "Alcoholic" ? "magenta" : "green"}
+          >
+            {drink.strAlcoholic}
+          </Tag>
+          {drink.strVideo ? (
+            <a href={drink.strVideo} target="_blank" rel="noopener noreferrer">
+              <FontAwesomeIcon
+                icon={faYoutube}
+                size="lg"
+                className="text-[#FF0000]"
+              ></FontAwesomeIcon>
+            </a>
+          ) : null}
+          <h2 className="text-lg py-2">Type of glass</h2>
+          <p>{drink.strGlass}</p>
+          {drink.strTags && <h2 className="text-lg py-2">Tags</h2>}
+          {drink.strTags?.split(",").map((ele) => (
+            <Tag key={uuidv4()} className="mt-3 mr-3" color="blue">
+              {ele}
+            </Tag>
+          ))}
+          <table className="table-auto min-w-full divide-y divide-gray-200 my-6">
+            <thead className="bg-gray-50">
+              <tr>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                >
+                  Ingredient
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                >
+                  Measure
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              <tr>
+                {drink.strIngredient1 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strIngredient1}
+                  </td>
+                )}
+                {drink.strMeasure1 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strMeasure1}
+                  </td>
+                )}
+              </tr>
+              <tr>
+                {drink.strIngredient2 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strIngredient2}
+                  </td>
+                )}
+                {drink.strMeasure2 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strMeasure2}
+                  </td>
+                )}
+              </tr>
+              <tr>
+                {drink.strIngredient3 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strIngredient3}
+                  </td>
+                )}
+                {drink.strMeasure3 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strMeasure3}
+                  </td>
+                )}
+              </tr>
+              <tr>
+                {drink.strIngredient4 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strIngredient4}
+                  </td>
+                )}
+                {drink.strMeasure4 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strMeasure4}
+                  </td>
+                )}
+              </tr>
+              <tr>
+                {drink.strIngredient5 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strIngredient5}
+                  </td>
+                )}
+                {drink.strMeasure5 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strMeasure5}
+                  </td>
+                )}
+              </tr>
+              <tr>
+                {drink.strIngredient6 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strIngredient6}
+                  </td>
+                )}
+                {drink.strMeasure6 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strMeasure6}
+                  </td>
+                )}
+              </tr>
+              <tr>
+                {drink.strIngredient7 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strIngredient7}
+                  </td>
+                )}
+                {drink.strMeasure7 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strMeasure7}
+                  </td>
+                )}
+              </tr>
+              <tr>
+                {drink.strIngredient8 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strIngredient8}
+                  </td>
+                )}
+                {drink.strMeasure8 && (
+                  <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                    {drink.strMeasure8}
+                  </td>
+                )}
+              </tr>
+            </tbody>
+          </table>
+          <Collapse
+            className="mt-4"
+            defaultActiveKey={engInstructionsCollapseKey}
+          >
+            <Panel
+              header="Preparation instructions"
+              key={engInstructionsCollapseKey}
+            >
+              <p>{drink.strInstructions}</p>
+            </Panel>
+            {drink.strInstructionsES && (
+              <Panel header="Instrucciones de preparación" key={uuidv4()}>
+                <p>{drink.strInstructionsES}</p>
+              </Panel>
+            )}
+          </Collapse>
+        </Card>
+      </div>
     </ApplicationWrapper>
   );
 };

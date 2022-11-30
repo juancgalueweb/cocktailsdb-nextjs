@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { fetchAllCocktails } from "../../helpers/fetchAllCocktails";
 import type { PaginationProps } from "antd";
 import { Pagination } from "antd";
+import { getPlaiceholder } from "plaiceholder";
 
 interface TProps {
   drinks: ICocktail[];
@@ -51,7 +52,13 @@ const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
 export default Popularcocktails;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const drinks = await fetchAllCocktails();
+  const fetchedDrinks = await fetchAllCocktails();
+  const drinks = await Promise.all(
+    fetchedDrinks.map(async (drink) => {
+      const { base64, img } = await getPlaiceholder(drink.strDrinkThumb);
+      return { ...drink, base64, img };
+    })
+  );
 
   return {
     props: {

@@ -1,3 +1,9 @@
+type ILoadImageReturn = {
+  src: string;
+  height: number;
+  width: number;
+  type?: string;
+};
 export interface ICocktail {
   idDrink: string;
   strDrink: string;
@@ -50,4 +56,6 @@ export interface ICocktail {
   strImageAttribution: string | null;
   strCreativeCommonsConfirmed: string | null;
   dateModified: string | null;
+  base64: string;
+  img: ILoadImageReturn;
 }

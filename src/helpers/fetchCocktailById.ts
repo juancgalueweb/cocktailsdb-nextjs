@@ -13,6 +13,6 @@ export async function fetchCocktailById(id: string) {
   const url = `https://the-cocktail-db.p.rapidapi.com/lookup.php?i=${id}`;
   const drink: ICocktail = await fetch(url, options)
     .then((res) => res.json())
-    .then((data) => data.drinks);
+    .then((data) => data.drinks[0]);
   return drink;
 }
