@@ -5,11 +5,11 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export const Footer: FC = () => {
   return (
-    <footer className="flex p-6 h-10 text-black bg-white items-center justify-between">
-      <span className="text-slate-800 font-extralight">
+    <footer className="flex p-6 md:h-20 lg:h-10 xl:h-10 text-black bg-white items-center justify-between">
+      <span className="text-slate-800 font-extralight mx-2">
         Project created by Juan C. Galu&eacute; R.
       </span>
-      <span className="text-blue-600 font-extralight">
+      <span className="text-blue-600 font-extralight mx-2">
         Email me to{" "}
         <a
           href="mailto: juancgalue@gmail.com?subject=Email%20from%20NextJS%20Vercel%20App"
@@ -19,7 +19,7 @@ export const Footer: FC = () => {
           juancgalue@gmail.com
         </a>{" "}
       </span>
-      <span className="text-slate-800 font-extralight">
+      <span className="text-slate-800 font-extralight mx-2">
         You can check the code in my{" "}
         <a
           href="https://github.com/juancgalueweb/nextjs-rootlab-final-project"

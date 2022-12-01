@@ -82,11 +82,11 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
         <h1 className="text-4xl py-3 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600">
           {drink.strDrink}
         </h1>
-        <div className="w-1/3 flex justify-between">
+        <div className="md:w-3/5 lg:w-1/2 xl:w-1/3 flex justify-between">
           {hasPrevId ? (
             <Link
               href={`/popular-cocktails/${allIds[+prevId]}`}
-              className="text-gray-600 text-lg font-medium mb-3"
+              className="text-gray-600 text-lg font-medium mb-3 mr-5"
             >
               <FontAwesomeIcon
                 icon={faArrowLeftLong}
@@ -101,7 +101,7 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
           {hasNextId && (
             <Link
               href={`/popular-cocktails/${allIds[+nextId]}`}
-              className="text-gray-600 text-lg font-medium mb-3"
+              className="text-gray-600 text-lg font-medium mb-3 ml-5"
             >
               Next{" "}
               <FontAwesomeIcon
@@ -114,7 +114,7 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
         </div>
         <Card
           hoverable
-          className="mb-6 cursor-default max-w-[600px]"
+          className="mb-6 cursor-default md:max-w-[600px] lg:min-w-[600px] xl:min-w-[600px]"
           cover={
             <div className="flex justify-center mt-2">
               <Image
