@@ -5,7 +5,6 @@ import { ICocktail } from "../../global/ICocktail";
 import { Card, Tag, Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
-// import { BlurhashCanvas } from "react-blurhash";
 interface TProps {
   drink: ICocktail;
 }
@@ -29,9 +28,13 @@ export const PopularCocktail: FC<TProps> = ({ drink }) => {
           />
         }
         extra={
-          <Link href={`/popular-cocktails/${drink.idDrink}`} passHref>
-            <Button type="primary">More</Button>
-          </Link>
+          <Button
+            type="primary"
+            href={`/popular-cocktails/${drink.idDrink}`}
+            className="my-3"
+          >
+            More
+          </Button>
         }
       >
         <Meta

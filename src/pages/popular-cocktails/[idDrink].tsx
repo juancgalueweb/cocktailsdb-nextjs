@@ -84,29 +84,31 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
         </h1>
         <div className="w-1/3 flex justify-between">
           {hasPrevId ? (
-            <Link href={`/popular-cocktails/${allIds[+prevId]}`} passHref>
-              <a className="text-gray-600 text-lg font-medium mb-3">
-                <FontAwesomeIcon
-                  icon={faArrowLeftLong}
-                  className="mr-2 fa-beat"
-                  style={{ animationDuration: "2s" }}
-                ></FontAwesomeIcon>{" "}
-                Previous
-              </a>
+            <Link
+              href={`/popular-cocktails/${allIds[+prevId]}`}
+              className="text-gray-600 text-lg font-medium mb-3"
+            >
+              <FontAwesomeIcon
+                icon={faArrowLeftLong}
+                className="mr-2 fa-beat"
+                style={{ animationDuration: "2s" }}
+              ></FontAwesomeIcon>{" "}
+              Previous
             </Link>
           ) : (
             <span> </span>
           )}
           {hasNextId && (
-            <Link href={`/popular-cocktails/${allIds[+nextId]}`} passHref>
-              <a className="text-gray-600 text-lg font-medium mb-3">
-                Next{" "}
-                <FontAwesomeIcon
-                  icon={faArrowRightLong}
-                  className="ml-2 fa-beat"
-                  style={{ animationDuration: "2s" }}
-                ></FontAwesomeIcon>
-              </a>
+            <Link
+              href={`/popular-cocktails/${allIds[+nextId]}`}
+              className="text-gray-600 text-lg font-medium mb-3"
+            >
+              Next{" "}
+              <FontAwesomeIcon
+                icon={faArrowRightLong}
+                className="ml-2 fa-beat"
+                style={{ animationDuration: "2s" }}
+              ></FontAwesomeIcon>
             </Link>
           )}
         </div>
@@ -122,14 +124,14 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                 height={500}
                 blurDataURL={drink.base64}
                 placeholder="blur"
-                style={{ borderRadius: "4px" }}
+                style={{ borderRadius: "4px", margin: "0 auto" }}
               />
             </div>
           }
           extra={
-            <Link href="/popular-cocktails" passHref>
-              <Button type="primary">Go Back</Button>
-            </Link>
+            <Button type="primary" href="/popular-cocktails" className="my-3">
+              Go Back
+            </Button>
           }
         >
           {imageCreditsName(drink.strImageAttribution) &&
