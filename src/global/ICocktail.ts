@@ -19,8 +19,8 @@ export interface ICocktail {
   strInstructionsDE: string | null;
   strInstructionsFR: string | null;
   strInstructionsIT: string | null;
-  "strInstructionsZH-HANS": string | null;
-  "strInstructionsZH-HANT": string | null;
+  'strInstructionsZH-HANS': string | null;
+  'strInstructionsZH-HANT': string | null;
   strDrinkThumb: string;
   strIngredient1: string | null;
   strIngredient2: string | null;
