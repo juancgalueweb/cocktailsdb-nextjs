@@ -14,7 +14,7 @@ export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
   children,
 }) => {
   return (
-    <div className='bg-black min-h-screen flex flex-col'>
+    <div className='bg-slate-200 min-h-screen flex flex-col'>
       <Head>
         <title>{title}</title>
         {description && <meta name='description' content={description} />}
@@ -22,7 +22,7 @@ export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
         {/* Enable this script in Christmas */}
         <script defer src='https://app.embed.im/snow.js'></script>
       </Head>
-      <header className='bg-white h-10'>
+      <header className='bg-white h-11'>
         <Nav />
       </header>
       <main className='grow flex flex-col text-white'>{children}</main>
