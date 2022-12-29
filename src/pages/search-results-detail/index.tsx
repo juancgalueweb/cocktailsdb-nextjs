@@ -1,18 +1,13 @@
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-import {
-  faArrowLeftLong,
-  faArrowRightLong,
-} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card, Collapse, Tag } from 'antd';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { getPlaiceholder } from 'plaiceholder';
 import { v4 as uuidv4 } from 'uuid';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { ICocktail } from '../../global/ICocktail';
-import { fetchAllCocktails } from '../../helpers/fetchAllCocktails';
 import { fetchCocktailById } from '../../helpers/fetchCocktailById';
 import { imageCreditsName } from '../../helpers/imageCreditsName';
 import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
@@ -20,59 +15,23 @@ import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
 const { Panel } = Collapse;
 interface TProps {
   drink: ICocktail;
-  nextId: number;
-  prevId: number;
-  hasNextId: boolean;
-  hasPrevId: boolean;
-  allIds: string[];
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const drinks = await fetchAllCocktails();
-  const paths = drinks?.map((drink: ICocktail) => {
-    return {
-      params: { idDrink: drink.idDrink },
-    };
-  });
-  return { paths: paths, fallback: false };
-};
+const engInstructionsCollapseKey = uuidv4();
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const id = context.params?.idDrink as string;
-  // Get all drinks to build a list with all the ids
-  const allDrinks = await fetchAllCocktails();
-  const allIds = allDrinks?.map((drink: ICocktail) => drink.idDrink);
-  const nextId: number = allIds.indexOf(id) + 1;
-  const prevId: number = allIds.indexOf(id) - 1;
-  const hasNextId: boolean = allIds.includes(allIds[nextId]);
-  const hasPrevId: boolean = allIds.includes(allIds[prevId]);
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const id = context.query['id'] as string;
   // Get a single drink by its id
   const singleDrink = await fetchCocktailById(id);
   const { base64, img } = await getPlaiceholder(singleDrink.strDrinkThumb);
   const drink = { ...singleDrink, base64, img };
-
   return {
-    props: {
-      drink,
-      nextId,
-      prevId,
-      hasNextId,
-      hasPrevId,
-      allIds,
-    },
+    props: { drink },
   };
 };
 
-const engInstructionsCollapseKey = uuidv4();
-
-const PopularCocktailDetailPage: NextPage<TProps> = ({
-  drink,
-  nextId,
-  prevId,
-  hasNextId,
-  hasPrevId,
-  allIds,
-}) => {
+const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
+  const router = useRouter();
   return (
     <ApplicationWrapper title={drink.strDrink}>
       <div
@@ -82,36 +41,6 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
         <h1 className='text-4xl py-3 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-zinc-800 to-zinc-600'>
           {drink.strDrink}
         </h1>
-        <div className='md:w-3/5 lg:w-1/2 xl:w-1/3 flex justify-between'>
-          {hasPrevId ? (
-            <Link
-              href={`/popular-cocktails/${allIds[+prevId]}`}
-              className='text-gray-600 text-lg font-medium mb-3 mr-5'
-            >
-              <FontAwesomeIcon
-                icon={faArrowLeftLong}
-                className='mr-2 fa-beat'
-                style={{ animationDuration: '2s' }}
-              ></FontAwesomeIcon>{' '}
-              Previous
-            </Link>
-          ) : (
-            <span> </span>
-          )}
-          {hasNextId && (
-            <Link
-              href={`/popular-cocktails/${allIds[+nextId]}`}
-              className='text-gray-600 text-lg font-medium mb-3 ml-5'
-            >
-              Next{' '}
-              <FontAwesomeIcon
-                icon={faArrowRightLong}
-                className='ml-2 fa-beat'
-                style={{ animationDuration: '2s' }}
-              ></FontAwesomeIcon>
-            </Link>
-          )}
-        </div>
         <Card
           hoverable
           className='mb-6 cursor-default md:max-w-[600px] lg:min-w-[600px] xl:min-w-[600px]'
@@ -129,7 +58,12 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
             </div>
           }
           extra={
-            <Button type='primary' href='/popular-cocktails' className='my-3'>
+            <Button
+              type='primary'
+              className='my-3'
+              onClick={() => router.back()}
+              danger
+            >
               Go Back
             </Button>
           }
@@ -315,4 +249,4 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
   );
 };
 
-export default PopularCocktailDetailPage;
+export default CocktailByIngredientById;

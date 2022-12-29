@@ -34,7 +34,7 @@ const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
   return (
     <ApplicationWrapper title={titleMessage} description={descriptionMessage}>
       <div className='flex flex-col justify-center items-center p-6 bg-slate-200'>
-        <h1 className='text-4xl pb-6 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600'>
+        <h1 className='text-4xl pb-6 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-zinc-800 to-zinc-600'>
           Most populars cocktails
         </h1>
         <ul className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5 mb-3'>
