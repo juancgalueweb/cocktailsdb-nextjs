@@ -8,9 +8,9 @@ import { getPlaiceholder } from 'plaiceholder';
 import { v4 as uuidv4 } from 'uuid';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { ICocktail } from '../../global/ICocktail';
-import { fetchCocktailById } from '../../helpers/fetchCocktailById';
 import { imageCreditsName } from '../../helpers/imageCreditsName';
 import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
+import { fetchCocktailById } from '../api/getCocktailById';
 
 const { Panel } = Collapse;
 interface TProps {

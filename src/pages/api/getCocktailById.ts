@@ -1,4 +1,5 @@
-import { ICocktail } from '../global/ICocktail';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { ICocktail } from '../../global/ICocktail';
 
 export async function fetchCocktailById(id: string) {
   const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!;
@@ -15,4 +16,17 @@ export async function fetchCocktailById(id: string) {
     .then((res) => res.json())
     .then((data) => data.drinks[0]);
   return drink;
+}
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  try {
+    const id = req.query['id'] as string;
+    const data = await fetchCocktailById(id);
+    return res.status(200).json(data);
+  } catch (err) {
+    return res.status(500).json({ error: err });
+  }
 }

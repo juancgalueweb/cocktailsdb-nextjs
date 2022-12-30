@@ -4,8 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { CocktailsByIngCard } from '../../components/CocktailsByIng/CocktailByIngCard';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { ICocktailsByIng } from '../../global/ICocktailsByIng';
-import { fetchCocktailsByIng } from '../../helpers/fetchCocktailsByIng';
-
+import { fetchCocktailsByIng } from '../api/getCocktailsByIng';
 interface TProps {
   drinks: ICocktailsByIng[];
   ingredient: string;

@@ -22,7 +22,7 @@ export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
         <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon' />
       </Head>
       {/* Enable this script in Christmas */}
-      <Script src='https://app.embed.im/snow.js' defer />
+      {/* <Script src='https://app.embed.im/snow.js' defer /> */}
       <header className='bg-white h-11'>
         <Nav />
       </header>
