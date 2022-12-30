@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { PopularCocktail } from '../../components/PopularCocktail/PopularCocktail';
 import { ICocktail } from '../../global/ICocktail';
-// import { fetchAllCocktails } from '../../helpers/fetchAllCocktails';
 import { fetchAllCocktails } from '../api/getPopularCocktails';
 
 interface TProps {
