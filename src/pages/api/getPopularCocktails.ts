@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ICocktail } from '../../global/ICocktail';
 
+//Exporting the fetching all cocktails as a function
 export async function fetchAllCocktails() {
   const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!;
   const requestHeaders: HeadersInit = {
