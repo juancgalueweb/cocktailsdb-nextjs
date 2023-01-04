@@ -70,16 +70,16 @@ const CocktailsByIngSearchResult: NextPage<TProps> = ({
   };
 
   useEffect(() => {
-    console.log('Pero que chucha', window.history.state.url);
-    // const prevPageArray = window.history.state.url.split('=');
-    // const pageNumber = +prevPageArray[prevPageArray.length - 1];
-    // if (pageNumber !== 1) {
-    //   setDataToShow(chunks(drinks)[pageNumber - 1]);
-    //   setCurrent(pageNumber);
-    // } else {
-    setDataToShow(chunks(drinks)[0]);
-    setCurrent(1);
-    // }
+    const prevPageUrl = window.history.state.url;
+    const pageNumberString = prevPageUrl.match(/page=(\d+)/g)[0];
+    const pageNumber = +pageNumberString.charAt(pageNumberString.length - 1);
+    if (pageNumber !== 1) {
+      setDataToShow(chunks(drinks)[pageNumber - 1]);
+      setCurrent(pageNumber);
+    } else {
+      setDataToShow(chunks(drinks)[0]);
+      setCurrent(1);
+    }
   }, [drinks, chunks]);
 
   return (
