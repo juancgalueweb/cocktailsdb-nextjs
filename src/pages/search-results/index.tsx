@@ -100,6 +100,7 @@ const CocktailsByIngSearchResult: NextPage<TProps> = ({
           current={current}
           onChange={onChange}
           total={drinks.length}
+          showTotal={(total) => `${total} cocktails in total`}
         />
       </div>
     </ApplicationWrapper>
