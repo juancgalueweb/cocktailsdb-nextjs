@@ -1,6 +1,7 @@
 import type { PaginationProps } from 'antd';
 import { Pagination } from 'antd';
 import { GetServerSideProps, NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { getPlaiceholder } from 'plaiceholder';
 import { useCallback, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -31,6 +32,7 @@ const CocktailsByIngSearchResult: NextPage<TProps> = ({
   drinks,
   ingredient,
 }) => {
+  const router = useRouter();
   const titleMessage = `Cocktails with ${ingredient}`;
   const descriptionMessage = 'Results of the cocktails by searched ingredient';
   const [current, setCurrent] = useState(1);
@@ -58,11 +60,25 @@ const CocktailsByIngSearchResult: NextPage<TProps> = ({
   const onChange: PaginationProps['onChange'] = (page) => {
     setDataToShow(chunks(drinks)[page - 1]);
     setCurrent(page);
+    router.replace(
+      {
+        query: { ...router.query, page: page },
+      },
+      undefined,
+      { shallow: true }
+    );
   };
 
   useEffect(() => {
-    setDataToShow(chunks(drinks)[0]);
-    setCurrent(1);
+    const prevPageArray = window.history.state.url.split('=');
+    const pageNumber = +prevPageArray[prevPageArray.length - 1];
+    if (pageNumber !== 1) {
+      setDataToShow(chunks(drinks)[pageNumber - 1]);
+      setCurrent(pageNumber);
+    } else {
+      setDataToShow(chunks(drinks)[0]);
+      setCurrent(1);
+    }
   }, [drinks, chunks]);
 
   return (

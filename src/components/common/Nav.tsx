@@ -18,7 +18,7 @@ export const Nav: FC = () => {
   });
 
   const onSelect = (value: string) => {
-    router.push(`/search-results?ingredient=${value}`);
+    router.push(`/search-results?ingredient=${value}&page=${1}`);
   };
 
   return (
