@@ -4,16 +4,8 @@ import { ICocktail } from '../../global/ICocktail';
 //Exporting the fetching all cocktails as a function
 export async function fetchAllCocktails() {
   const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!;
-  const requestHeaders: HeadersInit = {
-    'x-rapidapi-host': 'the-cocktail-db.p.rapidapi.com',
-    'x-rapidapi-key': apiKey,
-  };
-
   const drinks = (await fetch(
-    'https://the-cocktail-db.p.rapidapi.com/popular.php',
-    {
-      headers: requestHeaders,
-    }
+    `https://www.thecocktaildb.com/api/json/v2/${apiKey}/popular.php`
   )
     .then((res) => res.json())
     .then((data) => data.drinks)) as ICocktail[];
