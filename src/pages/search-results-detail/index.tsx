@@ -11,10 +11,12 @@ import { ICocktail } from '../../global/ICocktail';
 import { imageCreditsName } from '../../helpers/imageCreditsName';
 import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
 import { fetchCocktailById } from '../api/getCocktailById';
+import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients';
 
 const { Panel } = Collapse;
 interface TProps {
   drink: ICocktail;
+  ingredientUrl: { [key: string]: string };
 }
 
 const engInstructionsCollapseKey = uuidv4();
@@ -23,14 +25,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.query['id'] as string;
   // Get a single drink by its id
   const singleDrink = await fetchCocktailById(id);
+  const ingredientUrl = getIngredientsFromCocktail(singleDrink);
   const { base64, img } = await getPlaiceholder(singleDrink.strDrinkThumb);
   const drink = { ...singleDrink, base64, img };
   return {
-    props: { drink },
+    props: { drink, ingredientUrl },
   };
 };
 
-const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
+const CocktailByIngredientById: NextPage<TProps> = ({
+  drink,
+  ingredientUrl,
+}) => {
   const router = useRouter();
   return (
     <ApplicationWrapper title={drink.strDrink}>
@@ -132,11 +138,18 @@ const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
               <tr>
                 {drink.strIngredient1 && (
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
-                    {drink.strIngredient1}
+                    <span>{drink.strIngredient1}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient1Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
                   </td>
                 )}
                 {drink.strMeasure1 && (
-                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
                     {drink.strMeasure1}
                   </td>
                 )}
@@ -144,11 +157,18 @@ const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
               <tr>
                 {drink.strIngredient2 && (
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
-                    {drink.strIngredient2}
+                    <span>{drink.strIngredient2}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient2Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
                   </td>
                 )}
                 {drink.strMeasure2 && (
-                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
                     {drink.strMeasure2}
                   </td>
                 )}
@@ -156,11 +176,18 @@ const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
               <tr>
                 {drink.strIngredient3 && (
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
-                    {drink.strIngredient3}
+                    <span>{drink.strIngredient3}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient3Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
                   </td>
                 )}
                 {drink.strMeasure3 && (
-                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
                     {drink.strMeasure3}
                   </td>
                 )}
@@ -168,11 +195,18 @@ const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
               <tr>
                 {drink.strIngredient4 && (
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
-                    {drink.strIngredient4}
+                    <span>{drink.strIngredient4}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient4Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
                   </td>
                 )}
                 {drink.strMeasure4 && (
-                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
                     {drink.strMeasure4}
                   </td>
                 )}
@@ -180,11 +214,18 @@ const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
               <tr>
                 {drink.strIngredient5 && (
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
-                    {drink.strIngredient5}
+                    <span>{drink.strIngredient5}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient5Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
                   </td>
                 )}
                 {drink.strMeasure5 && (
-                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
                     {drink.strMeasure5}
                   </td>
                 )}
@@ -192,11 +233,18 @@ const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
               <tr>
                 {drink.strIngredient6 && (
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
-                    {drink.strIngredient6}
+                    <span>{drink.strIngredient6}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient6Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
                   </td>
                 )}
                 {drink.strMeasure6 && (
-                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
                     {drink.strMeasure6}
                   </td>
                 )}
@@ -204,11 +252,18 @@ const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
               <tr>
                 {drink.strIngredient7 && (
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
-                    {drink.strIngredient7}
+                    <span>{drink.strIngredient7}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient7Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
                   </td>
                 )}
                 {drink.strMeasure7 && (
-                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
                     {drink.strMeasure7}
                   </td>
                 )}
@@ -216,12 +271,57 @@ const CocktailByIngredientById: NextPage<TProps> = ({ drink }) => {
               <tr>
                 {drink.strIngredient8 && (
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
-                    {drink.strIngredient8}
+                    <span>{drink.strIngredient8}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient8Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
                   </td>
                 )}
                 {drink.strMeasure8 && (
-                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
                     {drink.strMeasure8}
+                  </td>
+                )}
+              </tr>
+              <tr>
+                {drink.strIngredient9 && (
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                    <span>{drink.strIngredient9}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient9Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
+                  </td>
+                )}
+                {drink.strMeasure9 && (
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
+                    {drink.strMeasure9}
+                  </td>
+                )}
+              </tr>
+              <tr>
+                {drink.strIngredient10 && (
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
+                    <span>{drink.strIngredient10}</span>
+                    <Image
+                      src={ingredientUrl.strIngredient10Pic}
+                      alt='Ingredient image'
+                      width={130}
+                      height={130}
+                      className='float-right'
+                    />
+                  </td>
+                )}
+                {drink.strMeasure10 && (
+                  <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap align-top'>
+                    {drink.strMeasure10}
                   </td>
                 )}
               </tr>
