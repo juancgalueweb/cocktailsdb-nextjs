@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const hasPrevId: boolean = allIds.includes(allIds[prevId]);
   // Get a single drink by its id
   const singleDrink = await fetchCocktailById(id);
-  const ingredientUrl = getIngredientsFromCocktail(singleDrink);
+  const ingredientUrl = await getIngredientsFromCocktail(singleDrink);
   const { base64, img } = await getPlaiceholder(singleDrink.strDrinkThumb);
   const drink = { ...singleDrink, base64, img };
 
