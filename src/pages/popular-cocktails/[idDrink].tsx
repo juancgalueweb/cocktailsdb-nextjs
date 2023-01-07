@@ -17,6 +17,7 @@ import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
 import { fetchCocktailById } from '../api/getCocktailById';
 import { fetchAllCocktails } from '../api/getPopularCocktails';
 import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients';
+import { IIngredients } from '../../global/IIngredients';
 
 const { Panel } = Collapse;
 interface TProps {
@@ -26,7 +27,7 @@ interface TProps {
   hasNextId: boolean;
   hasPrevId: boolean;
   allIds: string[];
-  ingredientUrl: { [key: string]: string };
+  ingredientUrl: IIngredients;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -123,11 +124,11 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
           cover={
             <div className='flex justify-center mt-2'>
               <Image
-                src={drink.img}
+                src={drink?.img}
                 alt={`${drink.strDrink} Image`}
                 width={500}
                 height={500}
-                blurDataURL={drink.base64}
+                blurDataURL={drink?.base64}
                 placeholder='blur'
                 style={{ borderRadius: '4px', margin: '0 auto' }}
               />
@@ -204,8 +205,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient1}</span>
                     <Image
-                      src={ingredientUrl.strIngredient1Pic}
+                      src={ingredientUrl.strIngredient1Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient1Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -223,8 +226,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient2}</span>
                     <Image
-                      src={ingredientUrl.strIngredient2Pic}
+                      src={ingredientUrl.strIngredient2Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient2Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -242,8 +247,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient3}</span>
                     <Image
-                      src={ingredientUrl.strIngredient3Pic}
+                      src={ingredientUrl.strIngredient3Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient3Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -261,8 +268,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient4}</span>
                     <Image
-                      src={ingredientUrl.strIngredient4Pic}
+                      src={ingredientUrl.strIngredient4Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient4Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -280,8 +289,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient5}</span>
                     <Image
-                      src={ingredientUrl.strIngredient5Pic}
+                      src={ingredientUrl.strIngredient5Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient5Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -299,8 +310,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient6}</span>
                     <Image
-                      src={ingredientUrl.strIngredient6Pic}
+                      src={ingredientUrl.strIngredient6Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient6Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -318,8 +331,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient7}</span>
                     <Image
-                      src={ingredientUrl.strIngredient7Pic}
+                      src={ingredientUrl.strIngredient7Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient7Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -337,8 +352,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient8}</span>
                     <Image
-                      src={ingredientUrl.strIngredient8Pic}
+                      src={ingredientUrl.strIngredient8Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient8Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -356,8 +373,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient9}</span>
                     <Image
-                      src={ingredientUrl.strIngredient9Pic}
+                      src={ingredientUrl.strIngredient9Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient9Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -375,8 +394,10 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
                   <td className='px-6 py-4 text-sm text-gray-800 whitespace-nowrap'>
                     <span>{drink.strIngredient10}</span>
                     <Image
-                      src={ingredientUrl.strIngredient10Pic}
+                      src={ingredientUrl.strIngredient10Pic?.img}
                       alt='Ingredient image'
+                      blurDataURL={ingredientUrl.strIngredient10Pic?.base64}
+                      placeholder='blur'
                       width={130}
                       height={130}
                       className='float-right'
@@ -407,6 +428,7 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
               </Panel>
             )}
           </Collapse>
+          {/* <p>{JSON.stringify(ingredientUrl)}</p> */}
         </Card>
       </div>
     </ApplicationWrapper>
