@@ -30,6 +30,9 @@ export const Nav: FC = () => {
         <Link href='/popular-cocktails' className='ml-4'>
           Pupular Cocktails
         </Link>
+        <Link href='/latest-cocktails' className='ml-4'>
+          Latest Cocktails
+        </Link>
       </div>
       <div>
         <AutoComplete
