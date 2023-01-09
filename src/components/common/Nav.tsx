@@ -27,10 +27,10 @@ export const Nav: FC = () => {
         <Link href='/' className='mr-4'>
           Home
         </Link>
-        <Link href='/popular-cocktails' className='ml-4'>
+        <Link href='/popular-cocktails' className='mx-4'>
           Pupular Cocktails
         </Link>
-        <Link href='/latest-cocktails' className='ml-4'>
+        <Link href='/latest-cocktails' className='mx-4'>
           Latest Cocktails
         </Link>
       </div>
