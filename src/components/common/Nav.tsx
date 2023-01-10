@@ -24,13 +24,22 @@ export const Nav: FC = () => {
   return (
     <nav className='w-full flex p-2 pl-4 items-center text-xl justify-between'>
       <div>
-        <Link href='/' className='mr-4'>
+        <Link
+          href='/'
+          className='mr-4 transition duration-500 border-b-2 border-transparent hover:border-blue-600 hover:text-gray-800'
+        >
           Home
         </Link>
-        <Link href='/popular-cocktails' className='mx-4'>
+        <Link
+          href='/popular-cocktails'
+          className='mx-4 transition duration-500 border-b-2 border-transparent hover:border-purple-500 hover:text-gray-800'
+        >
           Pupular Cocktails
         </Link>
-        <Link href='/latest-cocktails' className='mx-4'>
+        <Link
+          href='/latest-cocktails'
+          className='mx-4 transition duration-500 border-b-2 border-transparent hover:border-amber-500 hover:text-gray-800'
+        >
           Latest Cocktails
         </Link>
       </div>
