@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { ICocktail } from '../../global/ICocktail';
 import { fetchLatestCocktails } from '../api/getLatestCocktails';
-import { MostRecentCocktails } from '../../components/LatestCocktails/MostRecentCocktails';
+import { MostRecentCocktails } from '../../components/Cards/MostRecentCocktails';
 
 interface TProps {
   drinks: ICocktail[];

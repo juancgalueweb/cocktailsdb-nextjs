@@ -2,7 +2,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
 import { v4 as uuidv4 } from 'uuid';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { PopularCocktail } from '../../components/PopularCocktail/PopularCocktail';
+import { PopularCocktail } from '../../components/Cards/PopularCocktail';
 import { ICocktail } from '../../global/ICocktail';
 import { fetchAllCocktails } from '../api/getPopularCocktails';
 

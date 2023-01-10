@@ -29,7 +29,7 @@ export const CocktailsByIngCard: FC<TProps> = ({ drink }) => {
         extra={
           <Button
             type='primary'
-            href={`/search-results-detail?id=${drink.idDrink}`}
+            href={`/search-results-ingredient-detail?id=${drink.idDrink}`}
             className='my-3'
           >
             More

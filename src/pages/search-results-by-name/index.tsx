@@ -5,18 +5,18 @@ import { useRouter } from 'next/router';
 import { getPlaiceholder } from 'plaiceholder';
 import { useCallback, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { CocktailsByIngCard } from '../../components/CocktailsByIng/CocktailByIngCard';
+import { CocktailByNameDetails } from '../../components/Cards/CocktailByNameDetails';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { ICocktailsByIng } from '../../global/ICocktailsByIng';
-import { fetchCocktailsByIng } from '../api/getCocktailsByIng';
+import { ICocktail } from '../../global/ICocktail';
+import { fetchCocktailsbyName } from '../api/getCocktailByName';
 interface TProps {
-  drinks: ICocktailsByIng[];
-  ingredient: string;
+  drinks: ICocktail[];
+  name: string;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const ingredient = context.query['ingredient'] as string;
-  const fetchedDrinks = await fetchCocktailsByIng(ingredient);
+  const name = context.query['name'] as string;
+  const fetchedDrinks = await fetchCocktailsbyName(name);
   const drinks = await Promise.all(
     fetchedDrinks.map(async (drink) => {
       const { base64, img } = await getPlaiceholder(drink.strDrinkThumb);
@@ -24,22 +24,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
   );
   return {
-    props: { drinks, ingredient },
+    props: { drinks, name },
   };
 };
 
-const CocktailsByIngSearchResult: NextPage<TProps> = ({
-  drinks,
-  ingredient,
-}) => {
+const CocktailsByNameSearchResult: NextPage<TProps> = ({ drinks }) => {
   const router = useRouter();
-  const titleMessage = `Cocktails with ${ingredient}`;
-  const descriptionMessage = 'Results of the cocktails by searched ingredient';
+  const titleMessage = 'Cocktails by name';
+  const descriptionMessage = 'Results of the cocktails searched by name';
   const [current, setCurrent] = useState(1);
 
-  const chunks = useCallback((allDrinks: ICocktailsByIng[]) => {
-    let newArray: ICocktailsByIng[] = [];
-    const finalArray: ICocktailsByIng[][] = [];
+  const chunks = useCallback((allDrinks: ICocktail[]) => {
+    let newArray: ICocktail[] = [];
+    const finalArray: ICocktail[][] = [];
     if (allDrinks.length <= 10) {
       finalArray.push(allDrinks);
     } else {
@@ -85,12 +82,9 @@ const CocktailsByIngSearchResult: NextPage<TProps> = ({
   return (
     <ApplicationWrapper title={titleMessage} description={descriptionMessage}>
       <div className='flex flex-col justify-center items-center p-6 bg-slate-200'>
-        <h1 className='text-4xl pb-6 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-zinc-800 to-zinc-600'>
-          Cocktails made of {ingredient}
-        </h1>
         <ul className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5 mb-3'>
           {dataToShow.map((drink) => (
-            <CocktailsByIngCard key={uuidv4()} drink={drink} />
+            <CocktailByNameDetails key={uuidv4()} drink={drink} />
           ))}
         </ul>
         <Pagination
@@ -107,4 +101,4 @@ const CocktailsByIngSearchResult: NextPage<TProps> = ({
   );
 };
 
-export default CocktailsByIngSearchResult;
+export default CocktailsByNameSearchResult;
