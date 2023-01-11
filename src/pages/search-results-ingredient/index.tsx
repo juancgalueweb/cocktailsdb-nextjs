@@ -72,7 +72,8 @@ const CocktailsByIngSearchResult: NextPage<TProps> = ({
   useEffect(() => {
     const prevPageUrl = window.history.state.url;
     const pageNumberString = prevPageUrl.match(/page=(\d+)/g)[0];
-    const pageNumber = +pageNumberString.charAt(pageNumberString.length - 1);
+    const pageArray = pageNumberString.split('=');
+    const pageNumber = +pageArray[pageArray.length - 1];
     if (pageNumber !== 1) {
       setDataToShow(chunks(drinks)[pageNumber - 1]);
       setCurrent(pageNumber);
