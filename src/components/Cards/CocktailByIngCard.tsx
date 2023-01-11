@@ -1,6 +1,7 @@
-import { Button, Card } from 'antd';
+import { Card } from 'antd';
 import Image from 'next/image';
-import React, { FC } from 'react';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 import { ICocktailsByIng } from '../../global/ICocktailsByIng';
 
 interface TProps {
@@ -10,12 +11,16 @@ interface TProps {
 const { Meta } = Card;
 
 export const CocktailsByIngCard: FC<TProps> = ({ drink }) => {
+  const router = useRouter();
   return (
-    <li>
+    <div
+      onClick={() =>
+        router.push(`/search-results-ingredient-detail?id=${drink.idDrink}`)
+      }
+    >
       <Card
         className='transform transition duration-300 hover:scale-[1.03]'
         hoverable
-        style={{ cursor: 'default' }}
         cover={
           <Image
             src={drink.strDrinkThumb}
@@ -26,18 +31,9 @@ export const CocktailsByIngCard: FC<TProps> = ({ drink }) => {
             placeholder='blur'
           />
         }
-        extra={
-          <Button
-            type='primary'
-            href={`/search-results-ingredient-detail?id=${drink.idDrink}`}
-            className='my-3'
-          >
-            More
-          </Button>
-        }
       >
         <Meta title={drink.strDrink}></Meta>
       </Card>
-    </li>
+    </div>
   );
 };

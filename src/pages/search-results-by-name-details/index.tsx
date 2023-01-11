@@ -8,11 +8,11 @@ import { getPlaiceholder } from 'plaiceholder';
 import { v4 as uuidv4 } from 'uuid';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { ICocktail } from '../../global/ICocktail';
+import { IIngredients } from '../../global/IIngredients';
+import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients';
 import { imageCreditsName } from '../../helpers/imageCreditsName';
 import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
 import { fetchCocktailById } from '../api/getCocktailById';
-import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients';
-import { IIngredients } from '../../global/IIngredients';
 
 const { Panel } = Collapse;
 interface TProps {

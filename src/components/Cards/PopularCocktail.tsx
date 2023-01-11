@@ -1,8 +1,9 @@
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, Tag } from 'antd';
+import { Card, Tag } from 'antd';
 import Image from 'next/image';
-import React, { FC } from 'react';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
 import { ICocktail } from '../../global/ICocktail';
 interface TProps {
   drink: ICocktail;
@@ -11,12 +12,12 @@ interface TProps {
 const { Meta } = Card;
 
 export const PopularCocktail: FC<TProps> = ({ drink }) => {
+  const router = useRouter();
   return (
-    <li>
+    <div onClick={() => router.push(`/popular-cocktails/${drink.idDrink}`)}>
       <Card
         className='transform transition duration-300 hover:scale-[1.03]'
         hoverable
-        style={{ cursor: 'default' }}
         cover={
           <Image
             src={drink.img}
@@ -26,15 +27,6 @@ export const PopularCocktail: FC<TProps> = ({ drink }) => {
             height={606}
             placeholder='blur'
           />
-        }
-        extra={
-          <Button
-            type='primary'
-            href={`/popular-cocktails/${drink.idDrink}`}
-            className='my-3'
-          >
-            More
-          </Button>
         }
       >
         <Meta
@@ -57,6 +49,6 @@ export const PopularCocktail: FC<TProps> = ({ drink }) => {
           </a>
         ) : null}
       </Card>
-    </li>
+    </div>
   );
 };
