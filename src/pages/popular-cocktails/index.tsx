@@ -1,8 +1,7 @@
 import { GetStaticProps, NextPage } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
-import { v4 as uuidv4 } from 'uuid';
-import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { PopularCocktail } from '../../components/Cards/PopularCocktail';
+import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { ICocktail } from '../../global/ICocktail';
 import { fetchAllCocktails } from '../api/getPopularCocktails';
 
@@ -22,7 +21,7 @@ const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
         </h1>
         <ul className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5 mb-3'>
           {drinks.map((drink) => (
-            <PopularCocktail key={uuidv4()} drink={drink} />
+            <PopularCocktail key={drink.idDrink} drink={drink} />
           ))}
         </ul>
       </div>

@@ -1,10 +1,9 @@
 import { GetStaticProps, NextPage } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
-import { v4 as uuidv4 } from 'uuid';
+import { MostRecentCocktails } from '../../components/Cards/MostRecentCocktails';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { ICocktail } from '../../global/ICocktail';
 import { fetchLatestCocktails } from '../api/getLatestCocktails';
-import { MostRecentCocktails } from '../../components/Cards/MostRecentCocktails';
 
 interface TProps {
   drinks: ICocktail[];
@@ -22,7 +21,7 @@ const LatestCocktails: NextPage<TProps> = ({ drinks }) => {
         </h1>
         <ul className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5 mb-3'>
           {drinks.map((drink) => (
-            <MostRecentCocktails key={uuidv4()} drink={drink} />
+            <MostRecentCocktails key={drink.idDrink} drink={drink} />
           ))}
         </ul>
       </div>

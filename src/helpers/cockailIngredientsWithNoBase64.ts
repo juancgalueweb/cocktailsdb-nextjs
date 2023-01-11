@@ -1,10 +1,8 @@
-import { getPlaiceholder } from 'plaiceholder';
 import { ICocktail } from '../global/ICocktail';
-import { IIngredients } from '../global/IIngredients';
 
-export const getIngredientsFromCocktail = async (cocktail: ICocktail) => {
+export const getIngredientsWithNoBase64 = async (cocktail: ICocktail) => {
   const baseUrl: string = 'https://www.thecocktaildb.com/images/ingredients/';
-  const result: IIngredients = {};
+  const result: { [key: string]: string } = {};
   const keysArray = Object.keys(cocktail);
   await Promise.all(
     keysArray.map(async (key) => {
@@ -12,11 +10,9 @@ export const getIngredientsFromCocktail = async (cocktail: ICocktail) => {
       if (key.match(regex) && cocktail[key as keyof ICocktail] !== null) {
         const ingredientUrl =
           baseUrl + cocktail[key as keyof ICocktail] + '-Medium.png';
-        const { base64, img } = await getPlaiceholder(ingredientUrl);
-        result[`${key}Pic`] = { base64: base64, img: img };
+        result[`${key}Pic`] = ingredientUrl;
       }
     })
   );
-
   return result;
 };

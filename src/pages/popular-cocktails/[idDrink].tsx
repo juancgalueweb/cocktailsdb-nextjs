@@ -9,15 +9,14 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getPlaiceholder } from 'plaiceholder';
-import { v4 as uuidv4 } from 'uuid';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { ICocktail } from '../../global/ICocktail';
+import { IIngredients } from '../../global/IIngredients';
+import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients';
 import { imageCreditsName } from '../../helpers/imageCreditsName';
 import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
 import { fetchCocktailById } from '../api/getCocktailById';
 import { fetchAllCocktails } from '../api/getPopularCocktails';
-import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients';
-import { IIngredients } from '../../global/IIngredients';
 
 const { Panel } = Collapse;
 interface TProps {
@@ -68,8 +67,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-const engInstructionsCollapseKey = uuidv4();
-
 const PopularCocktailDetailPage: NextPage<TProps> = ({
   drink,
   nextId,
@@ -82,7 +79,7 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
   return (
     <ApplicationWrapper title={drink.strDrink}>
       <div
-        key={uuidv4()}
+        key={drink.idDrink}
         className='min-h-screen flex flex-col justify-center items-center bg-slate-200'
       >
         <h1 className='text-4xl py-3 font-semibold text-transparent bg-clip-text bg-gradient-to-br from-zinc-800 to-zinc-600'>
@@ -177,8 +174,8 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
           <h2 className='text-lg py-2'>Type of glass</h2>
           <p>{drink.strGlass}</p>
           {drink.strTags && <h2 className='text-lg py-2'>Tags</h2>}
-          {drink.strTags?.split(',').map((ele) => (
-            <Tag key={uuidv4()} className='mt-3 mr-3' color='blue'>
+          {drink.strTags?.split(',').map((ele, idx) => (
+            <Tag key={idx} className='mt-3 mr-3' color='blue'>
               {ele}
             </Tag>
           ))}
@@ -412,18 +409,15 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
               </tr>
             </tbody>
           </table>
-          <Collapse
-            className='mt-4'
-            defaultActiveKey={engInstructionsCollapseKey}
-          >
-            <Panel
-              header='Preparation instructions'
-              key={engInstructionsCollapseKey}
-            >
+          <Collapse className='mt-4' defaultActiveKey='english-instructions'>
+            <Panel header='Preparation instructions' key='english-instructions'>
               <p>{drink.strInstructions}</p>
             </Panel>
             {drink.strInstructionsES && (
-              <Panel header='Instrucciones de preparación' key={uuidv4()}>
+              <Panel
+                header='Instrucciones de preparación'
+                key='spanish-instructions'
+              >
                 <p>{drink.strInstructionsES}</p>
               </Panel>
             )}

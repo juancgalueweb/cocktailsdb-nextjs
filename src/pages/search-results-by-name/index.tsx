@@ -4,8 +4,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getPlaiceholder } from 'plaiceholder';
 import { useCallback, useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { CocktailByNameDetails } from '../../components/Cards/CocktailByNameDetails';
+import { CocktailDrawerById } from '../../components/Cards/CocktailDrawerById';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
 import { ICocktail } from '../../global/ICocktail';
 import { fetchCocktailsbyName } from '../api/getCocktailByName';
@@ -67,16 +66,8 @@ const CocktailsByNameSearchResult: NextPage<TProps> = ({ drinks }) => {
   };
 
   useEffect(() => {
-    const prevPageUrl = window.history.state.url;
-    const pageNumberString = prevPageUrl.match(/page=(\d+)/g)[0];
-    const pageNumber = +pageNumberString.charAt(pageNumberString.length - 1);
-    if (pageNumber !== 1) {
-      setDataToShow(chunks(drinks)[pageNumber - 1]);
-      setCurrent(pageNumber);
-    } else {
-      setDataToShow(chunks(drinks)[0]);
-      setCurrent(1);
-    }
+    setDataToShow(chunks(drinks)[0]);
+    setCurrent(1);
   }, [drinks, chunks]);
 
   return (
@@ -84,7 +75,7 @@ const CocktailsByNameSearchResult: NextPage<TProps> = ({ drinks }) => {
       <div className='flex flex-col justify-center items-center p-6 bg-slate-200'>
         <ul className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5 mb-3'>
           {dataToShow.map((drink) => (
-            <CocktailByNameDetails key={uuidv4()} drink={drink} />
+            <CocktailDrawerById key={drink.idDrink} drink={drink} />
           ))}
         </ul>
         <Pagination
