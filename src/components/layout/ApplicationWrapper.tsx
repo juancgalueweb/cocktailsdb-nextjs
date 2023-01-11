@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Script from 'next/script';
 import { FC, PropsWithChildren } from 'react';
 import { Footer } from '../common/Footer';
 import { Nav } from '../common/Nav';
@@ -20,6 +19,14 @@ export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
         <title>{title}</title>
         {description && <meta name='description' content={description} />}
         <link rel='shortcut icon' href='/favicon.ico' type='image/x-icon' />
+        {/* NProbress cdn CSS*/}
+        <link
+          rel='stylesheet'
+          href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css'
+          integrity='sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ=='
+          crossOrigin='anonymous'
+          referrerPolicy='no-referrer'
+        />
       </Head>
       {/* Enable this script in Christmas */}
       {/* <Script src='https://app.embed.im/snow.js' defer /> */}
