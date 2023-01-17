@@ -10,11 +10,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getPlaiceholder } from 'plaiceholder';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { CocktailApiResponse } from '../../global/CocktailApiResponse';
-import { Ingredients } from '../../global/Ingredients';
 import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients';
 import { imageCreditsName } from '../../helpers/imageCreditsName';
 import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
+import { Ingredients } from '../../interfaces/Ingredients';
 import { fetchCocktailById } from '../api/getCocktailById';
 import { fetchAllCocktails } from '../api/getPopularCocktails';
 

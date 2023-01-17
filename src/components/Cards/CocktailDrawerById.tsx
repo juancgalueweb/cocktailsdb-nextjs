@@ -1,9 +1,9 @@
 import { Card, Drawer } from 'antd';
 import Image from 'next/image';
 import { FC, useState } from 'react';
-import { CocktailApiResponse } from '../../global/CocktailApiResponse';
-import { CocktailsByIng } from '../../global/CocktailsByIng';
 import { getIngredientsWithNoBase64 } from '../../helpers/cockailIngredientsWithNoBase64';
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
+import { CocktailsByIng } from '../../interfaces/CocktailsByIng';
 import { fetchCocktailById } from '../../pages/api/getCocktailById';
 import { DrawerByIdElements } from '../Drawer/DrawerByIdElements';
 

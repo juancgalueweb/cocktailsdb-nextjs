@@ -2,7 +2,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
 import { MostRecentCocktails } from '../../components/Cards/MostRecentCocktails';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { CocktailApiResponse } from '../../global/CocktailApiResponse';
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
 import { fetchLatestCocktails } from '../api/getLatestCocktails';
 
 interface TProps {

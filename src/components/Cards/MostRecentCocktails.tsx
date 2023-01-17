@@ -4,7 +4,7 @@ import { Card, Tag } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { CocktailApiResponse } from '../../global/CocktailApiResponse';
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
 interface TProps {
   drink: CocktailApiResponse;
 }

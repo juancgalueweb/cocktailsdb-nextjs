@@ -6,7 +6,7 @@ import { getPlaiceholder } from 'plaiceholder';
 import { useCallback, useEffect, useState } from 'react';
 import { CocktailDrawerById } from '../../components/Cards/CocktailDrawerById';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { CocktailsByIng } from '../../global/CocktailsByIng';
+import { CocktailsByIng } from '../../interfaces/CocktailsByIng';
 import { fetchCocktailsByIng } from '../api/getCocktailsByIng';
 interface TProps {
   drinks: CocktailsByIng[];

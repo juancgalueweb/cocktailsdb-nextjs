@@ -1,4 +1,4 @@
-import { CocktailApiResponse } from '../global/CocktailApiResponse';
+import { CocktailApiResponse } from '../interfaces/CocktailApiResponse';
 
 export const getIngredientsWithNoBase64 = async (
   cocktail: CocktailApiResponse

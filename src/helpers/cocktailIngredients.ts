@@ -1,6 +1,6 @@
 import { getPlaiceholder } from 'plaiceholder';
-import { CocktailApiResponse } from '../global/CocktailApiResponse';
-import { Ingredients } from '../global/Ingredients';
+import { CocktailApiResponse } from '../interfaces/CocktailApiResponse';
+import { Ingredients } from '../interfaces/Ingredients';
 
 export const getIngredientsFromCocktail = async (
   cocktail: CocktailApiResponse

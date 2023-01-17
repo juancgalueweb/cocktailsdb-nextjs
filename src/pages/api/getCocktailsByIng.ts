@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { CocktailsByIng } from '../../global/CocktailsByIng';
+import { CocktailsByIng } from '../../interfaces/CocktailsByIng';
 
 export async function fetchCocktailsByIng(ingredient: string) {
   const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!;
