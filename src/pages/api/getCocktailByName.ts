@@ -1,13 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { CLIENT_PUBLIC_FILES_PATH } from 'next/dist/shared/lib/constants';
-import { ICocktail } from '../../global/ICocktail';
+import { CocktailApiResponse } from '../../global/CocktailApiResponse';
 
 export async function fetchCocktailsbyName(name: string) {
   const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!;
   const url: string = `https://www.thecocktaildb.com/api/json/v2/${apiKey}/search.php?s=${name}`;
-  const drinks: ICocktail[] = (await fetch(url)
+  const drinks: CocktailApiResponse[] = (await fetch(url)
     .then((res) => res.json())
-    .then((data) => data.drinks)) as ICocktail[];
+    .then((data) => data.drinks)) as CocktailApiResponse[];
   return drinks;
 }
 

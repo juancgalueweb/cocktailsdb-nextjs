@@ -1,10 +1,10 @@
-type ILoadImageReturn = {
+type LoadImageReturn = {
   src: string;
   height: number;
   width: number;
   type?: string;
 };
-export interface ICocktail {
+export interface CocktailApiResponse {
   idDrink: string;
   strDrink: string;
   strDrinkAlternate: string | null;
@@ -57,5 +57,5 @@ export interface ICocktail {
   strCreativeCommonsConfirmed: string | null;
   dateModified: string | null;
   base64: string;
-  img: ILoadImageReturn;
+  img: LoadImageReturn;
 }

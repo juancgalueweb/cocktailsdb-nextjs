@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Collapse, Tag } from 'antd';
 import Image from 'next/image';
 import { FC } from 'react';
-import { ICocktail } from '../../global/ICocktail';
+import { CocktailApiResponse } from '../../global/CocktailApiResponse';
 import { imageCreditsName } from '../../helpers/imageCreditsName';
 import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
 
 interface TProps {
-  cocktail: ICocktail;
+  cocktail: CocktailApiResponse;
   ingredient: { [key: string]: string };
 }
 

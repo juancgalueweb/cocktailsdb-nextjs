@@ -6,10 +6,10 @@ import { getPlaiceholder } from 'plaiceholder';
 import { useCallback, useEffect, useState } from 'react';
 import { CocktailDrawerById } from '../../components/Cards/CocktailDrawerById';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { ICocktailsByIng } from '../../global/ICocktailsByIng';
+import { CocktailsByIng } from '../../global/CocktailsByIng';
 import { fetchCocktailsByIng } from '../api/getCocktailsByIng';
 interface TProps {
-  drinks: ICocktailsByIng[];
+  drinks: CocktailsByIng[];
   ingredient: string;
 }
 
@@ -36,9 +36,9 @@ const CocktailsByIngSearchResult: NextPage<TProps> = ({
   const descriptionMessage = 'Results of the cocktails by searched ingredient';
   const [current, setCurrent] = useState(1);
 
-  const chunks = useCallback((allDrinks: ICocktailsByIng[]) => {
-    let newArray: ICocktailsByIng[] = [];
-    const finalArray: ICocktailsByIng[][] = [];
+  const chunks = useCallback((allDrinks: CocktailsByIng[]) => {
+    let newArray: CocktailsByIng[] = [];
+    const finalArray: CocktailsByIng[][] = [];
     if (allDrinks.length <= 10) {
       finalArray.push(allDrinks);
     } else {

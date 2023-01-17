@@ -1,17 +1,22 @@
 import { getPlaiceholder } from 'plaiceholder';
-import { ICocktail } from '../global/ICocktail';
-import { IIngredients } from '../global/IIngredients';
+import { CocktailApiResponse } from '../global/CocktailApiResponse';
+import { Ingredients } from '../global/Ingredients';
 
-export const getIngredientsFromCocktail = async (cocktail: ICocktail) => {
+export const getIngredientsFromCocktail = async (
+  cocktail: CocktailApiResponse
+) => {
   const baseUrl: string = 'https://www.thecocktaildb.com/images/ingredients/';
-  const result: IIngredients = {};
+  const result: Ingredients = {};
   const keysArray = Object.keys(cocktail);
   await Promise.all(
     keysArray.map(async (key) => {
       const regex = /strIngredient(\d{1,2})/g;
-      if (key.match(regex) && cocktail[key as keyof ICocktail] !== null) {
+      if (
+        key.match(regex) &&
+        cocktail[key as keyof CocktailApiResponse] !== null
+      ) {
         const ingredientUrl =
-          baseUrl + cocktail[key as keyof ICocktail] + '-Medium.png';
+          baseUrl + cocktail[key as keyof CocktailApiResponse] + '-Medium.png';
         const { base64, img } = await getPlaiceholder(ingredientUrl);
         result[`${key}Pic`] = { base64: base64, img: img };
       }

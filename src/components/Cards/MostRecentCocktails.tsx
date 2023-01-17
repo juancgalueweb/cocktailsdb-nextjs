@@ -4,9 +4,9 @@ import { Card, Tag } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { ICocktail } from '../../global/ICocktail';
+import { CocktailApiResponse } from '../../global/CocktailApiResponse';
 interface TProps {
-  drink: ICocktail;
+  drink: CocktailApiResponse;
 }
 
 const { Meta } = Card;

@@ -2,11 +2,11 @@ import { GetStaticProps, NextPage } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
 import { MostRecentCocktails } from '../../components/Cards/MostRecentCocktails';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { ICocktail } from '../../global/ICocktail';
+import { CocktailApiResponse } from '../../global/CocktailApiResponse';
 import { fetchLatestCocktails } from '../api/getLatestCocktails';
 
 interface TProps {
-  drinks: ICocktail[];
+  drinks: CocktailApiResponse[];
 }
 
 const LatestCocktails: NextPage<TProps> = ({ drinks }) => {

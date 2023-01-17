@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ICocktail } from '../../global/ICocktail';
+import { CocktailApiResponse } from '../../global/CocktailApiResponse';
 
 export async function fetchLatestCocktails() {
   const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!;
@@ -7,7 +7,7 @@ export async function fetchLatestCocktails() {
     `https://www.thecocktaildb.com/api/json/v2/${apiKey}/latest.php`
   )
     .then((res) => res.json())
-    .then((data) => data.drinks)) as ICocktail[];
+    .then((data) => data.drinks)) as CocktailApiResponse[];
 
   return drinks;
 }

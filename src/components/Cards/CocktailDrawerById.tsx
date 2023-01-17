@@ -1,20 +1,20 @@
 import { Card, Drawer } from 'antd';
 import Image from 'next/image';
 import { FC, useState } from 'react';
-import { ICocktail } from '../../global/ICocktail';
-import { ICocktailsByIng } from '../../global/ICocktailsByIng';
+import { CocktailApiResponse } from '../../global/CocktailApiResponse';
+import { CocktailsByIng } from '../../global/CocktailsByIng';
 import { getIngredientsWithNoBase64 } from '../../helpers/cockailIngredientsWithNoBase64';
 import { fetchCocktailById } from '../../pages/api/getCocktailById';
 import { DrawerByIdElements } from '../Drawer/DrawerByIdElements';
 
 interface TProps {
-  drink: ICocktailsByIng;
+  drink: CocktailsByIng;
 }
 const { Meta } = Card;
 
 export const CocktailDrawerById: FC<TProps> = ({ drink }) => {
   const [open, setOpen] = useState(false);
-  const [cocktail, setCocktail] = useState({} as ICocktail);
+  const [cocktail, setCocktail] = useState({} as CocktailApiResponse);
   const [ingredient, setIngredient] = useState({} as { [key: string]: string });
   const showDrawer = async () => {
     // Get a single drink by its id

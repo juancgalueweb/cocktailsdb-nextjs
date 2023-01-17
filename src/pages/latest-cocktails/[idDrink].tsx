@@ -10,8 +10,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getPlaiceholder } from 'plaiceholder';
 import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { ICocktail } from '../../global/ICocktail';
-import { IIngredients } from '../../global/IIngredients';
+import { CocktailApiResponse } from '../../global/CocktailApiResponse';
+import { Ingredients } from '../../global/Ingredients';
 import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients';
 import { imageCreditsName } from '../../helpers/imageCreditsName';
 import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
@@ -20,18 +20,18 @@ import { fetchLatestCocktails } from '../api/getLatestCocktails';
 
 const { Panel } = Collapse;
 interface TProps {
-  drink: ICocktail;
+  drink: CocktailApiResponse;
   nextId: number;
   prevId: number;
   hasNextId: boolean;
   hasPrevId: boolean;
   allIds: string[];
-  ingredientUrl: IIngredients;
+  ingredientUrl: Ingredients;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const drinks = await fetchLatestCocktails();
-  const paths = drinks?.map((drink: ICocktail) => {
+  const paths = drinks?.map((drink: CocktailApiResponse) => {
     return {
       params: { idDrink: drink.idDrink },
     };
@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.idDrink as string;
   // Get all drinks to build a list with all the ids
   const allDrinks = await fetchLatestCocktails();
-  const allIds = allDrinks?.map((drink: ICocktail) => drink.idDrink);
+  const allIds = allDrinks?.map((drink: CocktailApiResponse) => drink.idDrink);
   const nextId: number = allIds.indexOf(id) + 1;
   const prevId: number = allIds.indexOf(id) - 1;
   const hasNextId: boolean = allIds.includes(allIds[nextId]);

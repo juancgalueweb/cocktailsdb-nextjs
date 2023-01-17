@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ICocktail } from '../../global/ICocktail';
+import { CocktailApiResponse } from '../../global/CocktailApiResponse';
 
 export async function fetchCocktailById(id: string) {
   const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!;
   const url = `https://www.thecocktaildb.com/api/json/v2/${apiKey}/lookup.php?i=${id}`;
-  const drink: ICocktail = await fetch(url)
+  const drink: CocktailApiResponse = await fetch(url)
     .then((res) => res.json())
     .then((data) => data.drinks[0]);
   return drink;
