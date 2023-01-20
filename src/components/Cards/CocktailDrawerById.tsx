@@ -31,7 +31,7 @@ export const CocktailDrawerById: FC<TProps> = ({ drink }) => {
   return (
     <>
       <Drawer
-        size='large'
+        size='default'
         title={cocktail.strDrink}
         placement='right'
         onClose={onClose}

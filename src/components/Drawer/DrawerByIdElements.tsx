@@ -21,8 +21,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
         <Image
           src={cocktail.strDrinkThumb}
           alt={`${cocktail.strDrink} Image`}
-          width={600}
-          height={600}
+          width={330}
+          height={330}
           style={{ borderRadius: '4px', margin: '0 auto' }}
         />
       </div>
@@ -93,8 +93,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient1Pic}
                   alt={`${cocktail.strIngredient1} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
@@ -112,8 +112,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient2Pic}
                   alt={`${cocktail.strIngredient2} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
@@ -131,8 +131,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient3Pic}
                   alt={`${cocktail.strIngredient3} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
@@ -150,8 +150,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient4Pic}
                   alt={`${cocktail.strIngredient4} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
@@ -169,8 +169,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient5Pic}
                   alt={`${cocktail.strIngredient5} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
@@ -188,8 +188,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient6Pic}
                   alt={`${cocktail.strIngredient6} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
@@ -207,8 +207,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient7Pic}
                   alt={`${cocktail.strIngredient7} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
@@ -226,8 +226,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient8Pic}
                   alt={`${cocktail.strIngredient8} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
@@ -245,8 +245,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient9Pic}
                   alt={`${cocktail.strIngredient9} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
@@ -264,8 +264,8 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
                 <Image
                   src={ingredient.strIngredient10Pic}
                   alt={`${cocktail.strIngredient10} image`}
-                  width={130}
-                  height={130}
+                  width={115}
+                  height={115}
                   className='float-right'
                 />
               </td>
