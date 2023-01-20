@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "deploy": "gh-pages -d .next"
+    "lint": "next lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
@@ -17,7 +16,6 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@plaiceholder/next": "^2.5.0",
     "antd": "^5.1.4",
-    "gh-pages": "^4.0.0",
     "next": "13.1.2",
     "nprogress": "^0.2.0",
     "plaiceholder": "^2.5.0",

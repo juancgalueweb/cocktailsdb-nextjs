@@ -6,8 +6,7 @@ const config = {
   swcMinify: true,
   images: {
     domains: ['www.thecocktaildb.com']
-  },
-  basePath: '/cocktailsdb-nextjs'
+  }
 }
 
 module.exports = withPlaiceholder(config)
