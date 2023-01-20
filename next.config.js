@@ -7,7 +7,7 @@ const config = {
   images: {
     domains: ['www.thecocktaildb.com']
   },
-  basePath: '/cocktailsdb-nextjs/'
+  basePath: '/cocktailsdb-nextjs'
 }
 
 module.exports = withPlaiceholder(config)
