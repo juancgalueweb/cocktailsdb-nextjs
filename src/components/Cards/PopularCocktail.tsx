@@ -1,18 +1,18 @@
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Card, Tag } from 'antd';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { FC } from 'react';
-import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Card, Tag } from 'antd'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { FC } from 'react'
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse'
 interface TProps {
-  drink: CocktailApiResponse;
+  drink: CocktailApiResponse
 }
 
-const { Meta } = Card;
+const { Meta } = Card
 
 export const PopularCocktail: FC<TProps> = ({ drink }) => {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <div onClick={() => router.push(`/popular-cocktails/${drink.idDrink}`)}>
       <Card
@@ -50,5 +50,5 @@ export const PopularCocktail: FC<TProps> = ({ drink }) => {
         ) : null}
       </Card>
     </div>
-  );
-};
+  )
+}

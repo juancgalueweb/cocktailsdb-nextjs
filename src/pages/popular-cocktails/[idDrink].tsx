@@ -1,58 +1,59 @@
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons'
 import {
   faArrowLeftLong,
   faArrowRightLong,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, Collapse, Tag } from 'antd';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { getPlaiceholder } from 'plaiceholder';
-import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients';
-import { imageCreditsName } from '../../helpers/imageCreditsName';
-import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
-import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
-import { Ingredients } from '../../interfaces/Ingredients';
-import { fetchCocktailById } from '../api/getCocktailById';
-import { fetchAllCocktails } from '../api/getPopularCocktails';
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button, Card, Collapse, Tag } from 'antd'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { getPlaiceholder } from 'plaiceholder'
+import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper'
+import { getIngredientsFromCocktail } from '../../helpers/cocktailIngredients'
+import { imageCreditsName } from '../../helpers/imageCreditsName'
+import { imageCreditsUrl } from '../../helpers/imageCreditsUrl'
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse'
+import { Ingredients } from '../../interfaces/Ingredients'
+import { fetchCocktailById } from '../api/getCocktailById'
+import { fetchAllCocktails } from '../api/getPopularCocktails'
 
-const { Panel } = Collapse;
+const { Panel } = Collapse
 interface TProps {
-  drink: CocktailApiResponse;
-  nextId: number;
-  prevId: number;
-  hasNextId: boolean;
-  hasPrevId: boolean;
-  allIds: string[];
-  ingredientUrl: Ingredients;
+  drink: CocktailApiResponse
+  nextId: number
+  prevId: number
+  hasNextId: boolean
+  hasPrevId: boolean
+  allIds: string[]
+  ingredientUrl: Ingredients
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const drinks = await fetchAllCocktails();
+  const drinks = await fetchAllCocktails()
   const paths = drinks?.map((drink: CocktailApiResponse) => {
     return {
       params: { idDrink: drink.idDrink },
-    };
-  });
-  return { paths: paths, fallback: false };
-};
+    }
+  })
+  return { paths: paths, fallback: false }
+}
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const id = context.params?.idDrink as string;
+  const id = context.params?.idDrink as string
   // Get all drinks to build a list with all the ids
-  const allDrinks = await fetchAllCocktails();
-  const allIds = allDrinks?.map((drink: CocktailApiResponse) => drink.idDrink);
-  const nextId: number = allIds.indexOf(id) + 1;
-  const prevId: number = allIds.indexOf(id) - 1;
-  const hasNextId: boolean = allIds.includes(allIds[nextId]);
-  const hasPrevId: boolean = allIds.includes(allIds[prevId]);
+  const allDrinks = await fetchAllCocktails()
+  const allIds = allDrinks?.map((drink: CocktailApiResponse) => drink.idDrink)
+  const nextId: number = allIds.indexOf(id) + 1
+  const prevId: number = allIds.indexOf(id) - 1
+  const hasNextId: boolean = allIds.includes(allIds[nextId])
+  const hasPrevId: boolean = allIds.includes(allIds[prevId])
   // Get a single drink by its id
-  const singleDrink = await fetchCocktailById(id);
-  const ingredientUrl = await getIngredientsFromCocktail(singleDrink);
-  const { base64, img } = await getPlaiceholder(singleDrink.strDrinkThumb);
-  const drink = { ...singleDrink, base64, img };
+  const singleDrink = await fetchCocktailById(id)
+  const ingredientUrl = await getIngredientsFromCocktail(singleDrink)
+  const { base64, img } = await getPlaiceholder(singleDrink.strDrinkThumb)
+  const drink = { ...singleDrink, base64, img }
 
   return {
     props: {
@@ -64,8 +65,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       allIds,
       ingredientUrl,
     },
-  };
-};
+  }
+}
 
 const PopularCocktailDetailPage: NextPage<TProps> = ({
   drink,
@@ -76,6 +77,8 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
   allIds,
   ingredientUrl,
 }) => {
+  const router = useRouter()
+
   return (
     <ApplicationWrapper title={drink.strDrink}>
       <div
@@ -132,7 +135,12 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
             </div>
           }
           extra={
-            <Button type='primary' href='/popular-cocktails' className='my-3'>
+            <Button
+              type='default'
+              danger
+              className='my-3'
+              onClick={() => router.push('/popular-cocktails')}
+            >
               Go Back
             </Button>
           }
@@ -425,7 +433,7 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
         </Card>
       </div>
     </ApplicationWrapper>
-  );
-};
+  )
+}
 
-export default PopularCocktailDetailPage;
+export default PopularCocktailDetailPage
