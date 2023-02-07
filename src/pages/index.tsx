@@ -1,9 +1,9 @@
-import { NextPage } from 'next';
-import { ApplicationWrapper } from '../components/layout/ApplicationWrapper';
+import { NextPage } from 'next'
+import { ApplicationWrapper } from '../components/layout/ApplicationWrapper'
 
 const Home: NextPage = () => {
-  const titleMessage = 'Home';
-  const descriptionMessage = 'Home of the cocktails website';
+  const titleMessage = 'Home'
+  const descriptionMessage = 'Home of the cocktails website'
 
   return (
     <ApplicationWrapper title={titleMessage} description={descriptionMessage}>
@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         </div>
       </div>
     </ApplicationWrapper>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

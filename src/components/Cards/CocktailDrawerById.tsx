@@ -1,33 +1,33 @@
-import { Card, Drawer } from 'antd';
-import Image from 'next/image';
-import { FC, useState } from 'react';
-import { getIngredientsWithNoBase64 } from '../../helpers/cockailIngredientsWithNoBase64';
-import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
-import { CocktailsByIng } from '../../interfaces/CocktailsByIng';
-import { fetchCocktailById } from '../../pages/api/getCocktailById';
-import { DrawerByIdElements } from '../Drawer/DrawerByIdElements';
+import { Card, Drawer } from 'antd'
+import Image from 'next/image'
+import { FC, useState } from 'react'
+import { getIngredientsWithNoBase64 } from '../../helpers/cockailIngredientsWithNoBase64'
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse'
+import { CocktailsByIng } from '../../interfaces/CocktailsByIng'
+import { fetchCocktailById } from '../../pages/api/getCocktailById'
+import { DrawerByIdElements } from '../Drawer/DrawerByIdElements'
 
 interface TProps {
-  drink: CocktailsByIng;
+  drink: CocktailsByIng
 }
-const { Meta } = Card;
+const { Meta } = Card
 
 export const CocktailDrawerById: FC<TProps> = ({ drink }) => {
-  const [open, setOpen] = useState(false);
-  const [cocktail, setCocktail] = useState({} as CocktailApiResponse);
-  const [ingredient, setIngredient] = useState({} as { [key: string]: string });
+  const [open, setOpen] = useState(false)
+  const [cocktail, setCocktail] = useState({} as CocktailApiResponse)
+  const [ingredient, setIngredient] = useState({} as { [key: string]: string })
   const showDrawer = async () => {
     // Get a single drink by its id
-    const singleDrink = await fetchCocktailById(drink.idDrink);
-    const ingredientsUrl = await getIngredientsWithNoBase64(singleDrink);
-    setIngredient(ingredientsUrl);
-    setCocktail(singleDrink);
-    setOpen(true);
-  };
+    const singleDrink = await fetchCocktailById(drink.idDrink)
+    const ingredientsUrl = await getIngredientsWithNoBase64(singleDrink)
+    setIngredient(ingredientsUrl)
+    setCocktail(singleDrink)
+    setOpen(true)
+  }
 
   const onClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   return (
     <>
       <Drawer
@@ -58,5 +58,5 @@ export const CocktailDrawerById: FC<TProps> = ({ drink }) => {
         </Card>
       </div>
     </>
-  );
-};
+  )
+}

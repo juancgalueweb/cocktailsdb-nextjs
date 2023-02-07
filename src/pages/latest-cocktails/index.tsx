@@ -1,17 +1,17 @@
-import { GetStaticProps, NextPage } from 'next';
-import { getPlaiceholder } from 'plaiceholder';
-import { MostRecentCocktails } from '../../components/Cards/MostRecentCocktails';
-import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
-import { fetchLatestCocktails } from '../api/getLatestCocktails';
+import { GetStaticProps, NextPage } from 'next'
+import { getPlaiceholder } from 'plaiceholder'
+import { MostRecentCocktails } from '../../components/Cards/MostRecentCocktails'
+import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper'
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse'
+import { fetchLatestCocktails } from '../api/getLatestCocktails'
 
 interface TProps {
-  drinks: CocktailApiResponse[];
+  drinks: CocktailApiResponse[]
 }
 
 const LatestCocktails: NextPage<TProps> = ({ drinks }) => {
-  const titleMessage = 'Latest Cocktails';
-  const descriptionMessage = 'Latest cocktails of the cocktails website';
+  const titleMessage = 'Latest Cocktails'
+  const descriptionMessage = 'Latest cocktails of the cocktails website'
 
   return (
     <ApplicationWrapper title={titleMessage} description={descriptionMessage}>
@@ -26,23 +26,23 @@ const LatestCocktails: NextPage<TProps> = ({ drinks }) => {
         </ul>
       </div>
     </ApplicationWrapper>
-  );
-};
+  )
+}
 
-export default LatestCocktails;
+export default LatestCocktails
 
 export const getStaticProps: GetStaticProps = async () => {
-  const fetchedDrinks = await fetchLatestCocktails();
+  const fetchedDrinks = await fetchLatestCocktails()
   const drinks = await Promise.all(
     fetchedDrinks.map(async (drink) => {
-      const { base64, img } = await getPlaiceholder(drink.strDrinkThumb);
-      return { ...drink, base64, img };
+      const { base64, img } = await getPlaiceholder(drink.strDrinkThumb)
+      return { ...drink, base64, img }
     })
-  );
+  )
 
   return {
     props: {
       drinks,
     },
-  };
-};
+  }
+}

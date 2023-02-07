@@ -1,13 +1,13 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { CocktailsByIng } from '../../interfaces/CocktailsByIng';
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { CocktailsByIng } from '../../interfaces/CocktailsByIng'
 
 export async function fetchCocktailsByIng(ingredient: string) {
-  const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!;
-  const url = `https://www.thecocktaildb.com/api/json/v2/${apiKey}/filter.php?i=${ingredient}`;
+  const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!
+  const url = `https://www.thecocktaildb.com/api/json/v2/${apiKey}/filter.php?i=${ingredient}`
   const drinks: CocktailsByIng[] = await fetch(url)
     .then((res) => res.json())
-    .then((data) => data.drinks);
-  return drinks;
+    .then((data) => data.drinks)
+  return drinks
 }
 
 export default async function handler(
@@ -15,10 +15,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const ingredient = req.query['ingredient'] as string;
-    const data = await fetchCocktailsByIng(ingredient);
-    return res.status(200).json(data);
+    const ingredient = req.query['ingredient'] as string
+    const data = await fetchCocktailsByIng(ingredient)
+    return res.status(200).json(data)
   } catch (err) {
-    return res.status(500).json({ error: err });
+    return res.status(500).json({ error: err })
   }
 }

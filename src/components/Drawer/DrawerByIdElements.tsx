@@ -1,18 +1,18 @@
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Collapse, Tag } from 'antd';
-import Image from 'next/image';
-import { FC } from 'react';
-import { imageCreditsName } from '../../helpers/imageCreditsName';
-import { imageCreditsUrl } from '../../helpers/imageCreditsUrl';
-import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Collapse, Tag } from 'antd'
+import Image from 'next/image'
+import { FC } from 'react'
+import { imageCreditsName } from '../../helpers/imageCreditsName'
+import { imageCreditsUrl } from '../../helpers/imageCreditsUrl'
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse'
 
 interface TProps {
-  cocktail: CocktailApiResponse;
-  ingredient: { [key: string]: string };
+  cocktail: CocktailApiResponse
+  ingredient: { [key: string]: string }
 }
 
-const { Panel } = Collapse;
+const { Panel } = Collapse
 
 export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
   return (
@@ -289,5 +289,5 @@ export const DrawerByIdElements: FC<TProps> = ({ cocktail, ingredient }) => {
         )}
       </Collapse>
     </>
-  );
-};
+  )
+}

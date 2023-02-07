@@ -1,55 +1,55 @@
-import { AutoComplete, Input, message } from 'antd';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { FC } from 'react';
-import ingredientsJSON from '../../json/list-all-ingredients.json';
-import cocktailsNamesJSON from '../../json/list-all-cocktails-by-name.json';
-import { fetchCocktailsbyName } from '../../pages/api/getCocktailByName';
+import { AutoComplete, Input, message } from 'antd'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { FC } from 'react'
+import cocktailsNamesJSON from '../../json/list-all-cocktails-by-name.json'
+import ingredientsJSON from '../../json/list-all-ingredients.json'
+import { fetchCocktailsbyName } from '../../pages/api/getCocktailByName'
 
 export const Nav: FC = () => {
-  const [messageApi, contextHolder] = message.useMessage();
-  const router = useRouter();
+  const [messageApi, contextHolder] = message.useMessage()
+  const router = useRouter()
   //Ingredients
   const ingredients = ingredientsJSON.map((ele) => {
-    return { label: ele.strIngredient1, value: ele.strIngredient1 };
-  });
+    return { label: ele.strIngredient1, value: ele.strIngredient1 }
+  })
   const ingredientsInOrder = ingredients.sort((a, b) => {
-    let aString = a.label.toLowerCase();
-    let bString = b.label.toLowerCase();
-    if (aString < bString) return -1;
-    if (aString > bString) return 1;
-    return 0;
-  });
+    let aString = a.label.toLowerCase()
+    let bString = b.label.toLowerCase()
+    if (aString < bString) return -1
+    if (aString > bString) return 1
+    return 0
+  })
   const onSelectIngredient = (value: string) => {
-    router.push(`/search-results-ingredient?ingredient=${value}&page=${1}`);
-  };
+    router.push(`/search-results-ingredient?ingredient=${value}&page=${1}`)
+  }
 
   //Cocktails by name
 
   const allCocktails = cocktailsNamesJSON.map((cocktail) => {
-    return { label: cocktail.strDrink, value: cocktail.strDrink };
-  });
+    return { label: cocktail.strDrink, value: cocktail.strDrink }
+  })
   const allCocktailsInOrder = allCocktails.sort((a, b) => {
-    let aString = a.label.toLowerCase();
-    let bString = b.label.toLowerCase();
-    if (aString < bString) return -1;
-    if (aString > bString) return 1;
-    return 0;
-  });
+    let aString = a.label.toLowerCase()
+    let bString = b.label.toLowerCase()
+    if (aString < bString) return -1
+    if (aString > bString) return 1
+    return 0
+  })
   const onSelectCocktail = (value: string) => {
-    router.push(`/search-results-by-name?name=${value}&page=${1}`);
-  };
+    router.push(`/search-results-by-name?name=${value}&page=${1}`)
+  }
 
   const onSearch = async (value: string) => {
     if ((await fetchCocktailsbyName(value)) === null) {
       messageApi.open({
         type: 'error',
         content: 'Cocktail does not exist in the database',
-      });
+      })
     } else {
-      router.push(`/search-results-by-name?name=${value}&page=${1}`);
+      router.push(`/search-results-by-name?name=${value}&page=${1}`)
     }
-  };
+  }
 
   return (
     <nav className='w-full flex p-2 pl-4 items-center text-xl justify-between'>
@@ -100,5 +100,5 @@ export const Nav: FC = () => {
         ></AutoComplete>
       </div>
     </nav>
-  );
-};
+  )
+}

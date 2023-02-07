@@ -1,10 +1,10 @@
-import Head from 'next/head';
-import { FC, PropsWithChildren } from 'react';
-import { Footer } from '../common/Footer';
-import { Nav } from '../common/Nav';
+import Head from 'next/head'
+import { FC, PropsWithChildren } from 'react'
+import { Footer } from '../common/Footer'
+import { Nav } from '../common/Nav'
 interface TProps {
-  title: string;
-  description?: string;
+  title: string
+  description?: string
 }
 
 export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
@@ -29,5 +29,5 @@ export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
         <Footer />
       </div>
     </>
-  );
-};
+  )
+}

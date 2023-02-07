@@ -1,17 +1,17 @@
-import { GetStaticProps, NextPage } from 'next';
-import { getPlaiceholder } from 'plaiceholder';
-import { PopularCocktail } from '../../components/Cards/PopularCocktail';
-import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper';
-import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse';
-import { fetchAllCocktails } from '../api/getPopularCocktails';
+import { GetStaticProps, NextPage } from 'next'
+import { getPlaiceholder } from 'plaiceholder'
+import { PopularCocktail } from '../../components/Cards/PopularCocktail'
+import { ApplicationWrapper } from '../../components/layout/ApplicationWrapper'
+import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse'
+import { fetchAllCocktails } from '../api/getPopularCocktails'
 
 interface TProps {
-  drinks: CocktailApiResponse[];
+  drinks: CocktailApiResponse[]
 }
 
 const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
-  const titleMessage = 'Popular Cocktails';
-  const descriptionMessage = 'Popular cocktails of the cocktails website';
+  const titleMessage = 'Popular Cocktails'
+  const descriptionMessage = 'Popular cocktails of the cocktails website'
 
   return (
     <ApplicationWrapper title={titleMessage} description={descriptionMessage}>
@@ -26,23 +26,23 @@ const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
         </ul>
       </div>
     </ApplicationWrapper>
-  );
-};
+  )
+}
 
-export default Popularcocktails;
+export default Popularcocktails
 
 export const getStaticProps: GetStaticProps = async () => {
-  const fetchedDrinks = await fetchAllCocktails();
+  const fetchedDrinks = await fetchAllCocktails()
   const drinks = await Promise.all(
     fetchedDrinks.map(async (drink) => {
-      const { base64, img } = await getPlaiceholder(drink.strDrinkThumb);
-      return { ...drink, base64, img };
+      const { base64, img } = await getPlaiceholder(drink.strDrinkThumb)
+      return { ...drink, base64, img }
     })
-  );
+  )
 
   return {
     props: {
       drinks,
     },
-  };
-};
+  }
+}
