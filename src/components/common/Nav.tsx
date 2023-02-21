@@ -27,8 +27,9 @@ export const Nav: FC = () => {
     'ml-2 transition duration-500 border-b-2 border-transparent hover:border-gray-800 hover:text-gray-800'
   const restOfLinksClassName =
     'transition duration-500 border-b-2 border-transparent hover:border-gray-800 hover:text-gray-800'
+
   return (
-    <nav className='w-full p-2 text-xl flex justify-start items-center gap-x-5'>
+    <nav className='w-full p-2 text-sm md:text-xl flex justify-start items-center gap-x-2 md:gap-x-5'>
       <Link
         href='/'
         className={
@@ -62,7 +63,7 @@ export const Nav: FC = () => {
           onClick={e => e.preventDefault()}
           className='transition duration-500 border-b-2 border-transparent hover:border-gray-800 hover:text-gray-800'
         >
-          <Space className='text-xl'>
+          <Space className='text-sm md:text-xl'>
             More drinks
             <div className='flex content-center gap-1'>
               <QuestionCircleOutlined className='bg-red-600 text-slate-200 rounded-2xl' />
