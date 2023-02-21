@@ -1,7 +1,7 @@
 import { faYoutube } from '@fortawesome/free-brands-svg-icons'
 import {
   faArrowLeftLong,
-  faArrowRightLong,
+  faArrowRightLong
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Card, Collapse, Tag } from 'antd'
@@ -34,13 +34,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const drinks = await fetchLatestCocktails()
   const paths = drinks?.map((drink: CocktailApiResponse) => {
     return {
-      params: { idDrink: drink.idDrink },
+      params: { idDrink: drink.idDrink }
     }
   })
   return { paths: paths, fallback: false }
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async context => {
   const id = context.params?.idDrink as string
   // Get all drinks to build a list with all the ids
   const allDrinks = await fetchLatestCocktails()
@@ -63,8 +63,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       hasNextId,
       hasPrevId,
       allIds,
-      ingredientUrl,
-    },
+      ingredientUrl
+    }
   }
 }
 
@@ -75,7 +75,7 @@ const PopularCocktailDetailPage: NextPage<TProps> = ({
   hasNextId,
   hasPrevId,
   allIds,
-  ingredientUrl,
+  ingredientUrl
 }) => {
   const router = useRouter()
 

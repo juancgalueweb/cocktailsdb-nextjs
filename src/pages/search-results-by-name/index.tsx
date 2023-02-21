@@ -13,17 +13,17 @@ interface TProps {
   name: string
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async context => {
   const name = context.query['name'] as string
   const fetchedDrinks = await fetchCocktailsbyName(name)
   const drinks = await Promise.all(
-    fetchedDrinks.map(async (drink) => {
+    fetchedDrinks.map(async drink => {
       const { base64, img } = await getPlaiceholder(drink.strDrinkThumb)
       return { ...drink, base64, img }
     })
   )
   return {
-    props: { drinks, name },
+    props: { drinks, name }
   }
 }
 
@@ -53,12 +53,12 @@ const CocktailsByNameSearchResult: NextPage<TProps> = ({ drinks }) => {
   }, [])
 
   const [dataToShow, setDataToShow] = useState(chunks(drinks)[0])
-  const onChange: PaginationProps['onChange'] = (page) => {
+  const onChange: PaginationProps['onChange'] = page => {
     setDataToShow(chunks(drinks)[page - 1])
     setCurrent(page)
     router.replace(
       {
-        query: { ...router.query, page: page },
+        query: { ...router.query, page: page }
       },
       undefined,
       { shallow: true }
@@ -74,7 +74,7 @@ const CocktailsByNameSearchResult: NextPage<TProps> = ({ drinks }) => {
     <ApplicationWrapper title={titleMessage} description={descriptionMessage}>
       <div className='flex flex-col justify-center items-center p-6 bg-slate-200'>
         <ul className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5 mb-3'>
-          {dataToShow.map((drink) => (
+          {dataToShow.map(drink => (
             <CocktailDrawerById key={drink.idDrink} drink={drink} />
           ))}
         </ul>
@@ -85,7 +85,7 @@ const CocktailsByNameSearchResult: NextPage<TProps> = ({ drinks }) => {
           current={current}
           onChange={onChange}
           total={drinks.length}
-          showTotal={(total) => `${total} cocktails in total`}
+          showTotal={total => `${total} cocktails in total`}
         />
       </div>
     </ApplicationWrapper>

@@ -2,12 +2,12 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { CocktailApiResponse } from '../../interfaces/CocktailApiResponse'
 
 export async function fetchAllCocktails() {
-  const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!
+  const apiKey = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY
   const drinks = (await fetch(
     `https://www.thecocktaildb.com/api/json/v2/${apiKey}/popular.php`
   )
-    .then((res) => res.json())
-    .then((data) => data.drinks)) as CocktailApiResponse[]
+    .then(res => res.json())
+    .then(data => data.drinks)) as CocktailApiResponse[]
 
   return drinks
 }

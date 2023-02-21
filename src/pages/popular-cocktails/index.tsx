@@ -20,7 +20,7 @@ const Popularcocktails: NextPage<TProps> = ({ drinks }) => {
           Most populars cocktails
         </h1>
         <ul className='w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5 mb-3'>
-          {drinks.map((drink) => (
+          {drinks.map(drink => (
             <PopularCocktail key={drink.idDrink} drink={drink} />
           ))}
         </ul>
@@ -34,7 +34,7 @@ export default Popularcocktails
 export const getStaticProps: GetStaticProps = async () => {
   const fetchedDrinks = await fetchAllCocktails()
   const drinks = await Promise.all(
-    fetchedDrinks.map(async (drink) => {
+    fetchedDrinks.map(async drink => {
       const { base64, img } = await getPlaiceholder(drink.strDrinkThumb)
       return { ...drink, base64, img }
     })
@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      drinks,
-    },
+      drinks
+    }
   }
 }

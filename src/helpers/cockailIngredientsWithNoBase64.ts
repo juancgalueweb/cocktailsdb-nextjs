@@ -3,11 +3,11 @@ import { CocktailApiResponse } from '../interfaces/CocktailApiResponse'
 export const getIngredientsWithNoBase64 = async (
   cocktail: CocktailApiResponse
 ) => {
-  const baseUrl: string = 'https://www.thecocktaildb.com/images/ingredients/'
+  const baseUrl = 'https://www.thecocktaildb.com/images/ingredients/'
   const result: { [key: string]: string } = {}
   const keysArray = Object.keys(cocktail)
   await Promise.all(
-    keysArray.map(async (key) => {
+    keysArray.map(async key => {
       const regex = /strIngredient(\d{1,2})/g
       if (
         key.match(regex) &&

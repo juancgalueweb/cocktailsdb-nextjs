@@ -10,7 +10,7 @@ interface TProps {
 export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
   title,
   description,
-  children,
+  children
 }) => {
   return (
     <>
@@ -22,7 +22,7 @@ export const ApplicationWrapper: FC<PropsWithChildren<TProps>> = ({
         </Head>
         {/* Enable this script in Christmas */}
         {/* <Script src='https://app.embed.im/snow.js' defer /> */}
-        <header className='bg-white h-11'>
+        <header className='bg-white h-11 sticky top-0 z-10 backdrop-filter backdrop-blur-lg bg-opacity-70'>
           <Nav />
         </header>
         <main className='grow flex flex-col text-white'>{children}</main>

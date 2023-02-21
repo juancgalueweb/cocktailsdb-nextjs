@@ -1,104 +1,76 @@
-import { AutoComplete, Input, message } from 'antd'
+import { DownOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import type { MenuProps } from 'antd'
+import { Dropdown, Space } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import cocktailsNamesJSON from '../../json/list-all-cocktails-by-name.json'
-import ingredientsJSON from '../../json/list-all-ingredients.json'
-import { fetchCocktailsbyName } from '../../pages/api/getCocktailByName'
+import { FaCocktail } from 'react-icons/fa'
+import SearchByIngredientModal from '../Modals/SearchByIngredient'
+import SearchByNameModal from '../Modals/SearchByName'
 
 export const Nav: FC = () => {
-  const [messageApi, contextHolder] = message.useMessage()
   const router = useRouter()
-  //Ingredients
-  const ingredients = ingredientsJSON.map((ele) => {
-    return { label: ele.strIngredient1, value: ele.strIngredient1 }
-  })
-  const ingredientsInOrder = ingredients.sort((a, b) => {
-    let aString = a.label.toLowerCase()
-    let bString = b.label.toLowerCase()
-    if (aString < bString) return -1
-    if (aString > bString) return 1
-    return 0
-  })
-  const onSelectIngredient = (value: string) => {
-    router.push(`/search-results-ingredient?ingredient=${value}&page=${1}`)
-  }
-
-  //Cocktails by name
-
-  const allCocktails = cocktailsNamesJSON.map((cocktail) => {
-    return { label: cocktail.strDrink, value: cocktail.strDrink }
-  })
-  const allCocktailsInOrder = allCocktails.sort((a, b) => {
-    let aString = a.label.toLowerCase()
-    let bString = b.label.toLowerCase()
-    if (aString < bString) return -1
-    if (aString > bString) return 1
-    return 0
-  })
-  const onSelectCocktail = (value: string) => {
-    router.push(`/search-results-by-name?name=${value}&page=${1}`)
-  }
-
-  const onSearch = async (value: string) => {
-    if ((await fetchCocktailsbyName(value)) === null) {
-      messageApi.open({
-        type: 'error',
-        content: 'Cocktail does not exist in the database',
-      })
-    } else {
-      router.push(`/search-results-by-name?name=${value}&page=${1}`)
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: <SearchByNameModal />
+    },
+    {
+      key: '2',
+      label: <SearchByIngredientModal />
     }
-  }
+  ]
 
+  const activeLinkClassName =
+    'py-0.5 px-1 rounded bg-gray-700 text-white hover:shadow-slate-600'
+  const homeClassName =
+    'ml-2 transition duration-500 border-b-2 border-transparent hover:border-gray-800 hover:text-gray-800'
+  const restOfLinksClassName =
+    'transition duration-500 border-b-2 border-transparent hover:border-gray-800 hover:text-gray-800'
   return (
-    <nav className='w-full flex p-2 pl-4 items-center text-xl justify-between'>
-      {contextHolder}
-      <div>
-        <Link
-          href='/'
-          className='mr-4 transition duration-500 border-b-2 border-transparent hover:border-blue-600 hover:text-gray-800'
+    <nav className='w-full p-2 text-xl flex justify-start items-center gap-x-5'>
+      <Link
+        href='/'
+        className={
+          router.pathname === '/' ? activeLinkClassName : homeClassName
+        }
+      >
+        Home
+      </Link>
+      <Link
+        href='/popular-cocktails'
+        className={
+          router.pathname === '/popular-cocktails'
+            ? activeLinkClassName
+            : restOfLinksClassName
+        }
+      >
+        Popular <FaCocktail className='inline text-teal-400 mb-1 mx-1' />
+      </Link>
+      <Link
+        href='/latest-cocktails'
+        className={
+          router.pathname === '/latest-cocktails'
+            ? activeLinkClassName
+            : restOfLinksClassName
+        }
+      >
+        Latest <FaCocktail className='inline text-teal-400 mb-1 mx-1' />
+      </Link>
+      <Dropdown menu={{ items }}>
+        <a
+          onClick={e => e.preventDefault()}
+          className='transition duration-500 border-b-2 border-transparent hover:border-gray-800 hover:text-gray-800'
         >
-          Home
-        </Link>
-        <Link
-          href='/popular-cocktails'
-          className='mx-4 transition duration-500 border-b-2 border-transparent hover:border-purple-500 hover:text-gray-800'
-        >
-          Pupular Cocktails
-        </Link>
-        <Link
-          href='/latest-cocktails'
-          className='mx-4 transition duration-500 border-b-2 border-transparent hover:border-amber-500 hover:text-gray-800'
-        >
-          Latest Cocktails
-        </Link>
-      </div>
-      <div className='flex items-center'>
-        <AutoComplete
-          dropdownMatchSelectWidth={252}
-          style={{ width: 250 }}
-          options={allCocktailsInOrder}
-          filterOption={true}
-          onSelect={onSelectCocktail}
-          className='mr-4'
-        >
-          <Input.Search
-            placeholder='Search cocktails by name'
-            onSearch={onSearch}
-          />
-        </AutoComplete>
-        <AutoComplete
-          dropdownMatchSelectWidth={252}
-          style={{ width: 300 }}
-          placeholder='Search cocktails by ingredient'
-          options={ingredientsInOrder}
-          filterOption={true}
-          onSelect={onSelectIngredient}
-          notFoundContent='Ingredient not found'
-          allowClear
-        ></AutoComplete>
-      </div>
+          <Space className='text-xl'>
+            More drinks
+            <div className='flex content-center gap-1'>
+              <QuestionCircleOutlined className='bg-red-600 text-slate-200 rounded-2xl' />
+              <DownOutlined className='inline' />
+            </div>
+          </Space>
+        </a>
+      </Dropdown>
     </nav>
   )
 }

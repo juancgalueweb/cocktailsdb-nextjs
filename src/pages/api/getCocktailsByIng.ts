@@ -2,11 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { CocktailsByIng } from '../../interfaces/CocktailsByIng'
 
 export async function fetchCocktailsByIng(ingredient: string) {
-  const apiKey: string = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY!
+  const apiKey = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY
   const url = `https://www.thecocktaildb.com/api/json/v2/${apiKey}/filter.php?i=${ingredient}`
   const drinks: CocktailsByIng[] = await fetch(url)
-    .then((res) => res.json())
-    .then((data) => data.drinks)
+    .then(res => res.json())
+    .then(data => data.drinks)
   return drinks
 }
 
